@@ -1,20 +1,20 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   ScrollView,
   StyleSheet,
-  TouchableOpacity
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import DropDownPicker from 'react-native-dropdown-picker';
+  TouchableOpacity,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import DropDownPicker from "react-native-dropdown-picker";
 import {
   useQuery,
   QueryClient,
   QueryClientProvider,
-  useQueryClient
-} from '@tanstack/react-query';
+  useQueryClient,
+} from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
@@ -25,8 +25,8 @@ export default function ReadingRoom({ navigation }) {
 
   // 도서관 선택
   const [items, setItems] = useState([
-    { label: '도서관 선택 | 서울캠퍼스', value: 0 },
-    { label: '도서관 선택 | 세종캠퍼스', value: 1 }
+    { label: "도서관 선택 | 서울캠퍼스", value: 0 },
+    { label: "도서관 선택 | 세종캠퍼스", value: 1 },
   ]);
 
   // API 쿼리 값 저장
@@ -50,7 +50,7 @@ export default function ReadingRoom({ navigation }) {
   // 열람실 목록 출력
   const PrintReadingRoom = () => {
     // useQuery를 활용한 Data fetch
-    const query = useQuery(['readingroom'], fetchReadingRoom);
+    const query = useQuery(["readingroom"], fetchReadingRoom);
 
     // Print Error
     if (query.isError) {
@@ -76,12 +76,13 @@ export default function ReadingRoom({ navigation }) {
               <Text style={styles.time}>00:00 ~ 24:00</Text>
             </View>
 
-           <View style={styles.stateContainer}>
+            <View style={styles.stateContainer}>
               <Text style={styles.roomRemain}>
-                Total: {`${room.totalNum}`} / Available: {`${room.availableNum}`}
+                Total: {`${room.totalNum}`} / Available:{" "}
+                {`${room.availableNum}`}
               </Text>
               <View style={styles.label}>
-                  <Text style={styles.roomState}>배정가능</Text>
+                <Text style={styles.roomState}>배정가능</Text>
               </View>
             </View>
           </View>
@@ -114,57 +115,56 @@ export default function ReadingRoom({ navigation }) {
 
 const styles = StyleSheet.create({
   dropContainer: {
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    padding: 10
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    padding: 10,
   },
   roomContainer: {
-    height: '80%',
+    height: "80%",
     padding: 10,
-    marginTop: 5
+    marginTop: 5,
   },
   group: {
-    width: '100%',
-    height: '40%',
-    margin : 3
+    width: "100%",
+    height: "40%",
+    margin: 3,
   },
   roomBox: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#ffffff',
-    flexDirection: 'column',
-    justifyContent: 'center'
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#ffffff",
+    flexDirection: "column",
+    justifyContent: "center",
   },
   titleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   roomName: {
     fontSize: 15,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     margin: 5,
   },
   stateContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   label: {
     width: 45,
     height: 23,
-    backgroundColor: '#36BC9B',
+    backgroundColor: "#36BC9B",
     margin: 5,
-    flexDirection: 'row',
-    justifyContent: 'center'
+    flexDirection: "row",
+    justifyContent: "center",
   },
   roomState: {
-    color: 'white'
+    color: "white",
   },
   time: {
     margin: 5,
-    justifyContent: 'flex-end'
+    justifyContent: "flex-end",
   },
   roomRemain: {
-    margin: 5
+    margin: 5,
   },
-  
 });
