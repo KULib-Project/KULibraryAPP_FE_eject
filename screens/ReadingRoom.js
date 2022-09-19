@@ -72,7 +72,6 @@ export default function ReadingRoom({ navigation }) {
           <View style={styles.roomBox}>
             <View style={styles.titleContainer}>
               <Text style={styles.roomName}>{`${room.readingRoom_name}`}</Text>
-
               <Text style={styles.time}>00:00 ~ 24:00</Text>
             </View>
 

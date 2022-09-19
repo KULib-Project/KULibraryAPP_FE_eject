@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, View } from 'react-native';
+import React from "react";
+import { Button, View } from "react-native";
 
 //앱 처음 페이지에 보여지는 화면 각 버튼에 네비게이션 설정
 function HomeScreen({ navigation }) {
@@ -10,11 +10,14 @@ function HomeScreen({ navigation }) {
       <Button title="Home" onPress={() => navigation.navigate("Home")} />
       <Button title="Auth" onPress={() => navigation.navigate("Auth")} />
       <Button title="Post" onPress={() => navigation.navigate("Post")} />
-      <Button title="Post Detail" onPress={() => navigation.navigate("PostDetail")} />
+      <Button
+        title="Post Detail"
+        onPress={() => navigation.navigate("PostDetail")}
+      />
       <Button title="Show Post" onPress={() => navigation.navigate("Show")} />
       <Button
         title="Reading Room"
-        onPress={() => navigation.navigate('Reading')}
+        onPress={() => navigation.navigate("Reading")}
       />
       <Button
         title="API Test Forward"
@@ -24,10 +27,7 @@ function HomeScreen({ navigation }) {
         title="API Test Middle"
         onPress={() => navigation.navigate("Middle")}
       />
-      <Button
-        title="API Test End"
-        onPress={() => navigation.navigate("End")}
-      />
+      <Button title="API Test End" onPress={() => navigation.navigate("End")} />
     </View>
   );
 }

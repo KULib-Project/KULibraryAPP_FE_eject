@@ -1,21 +1,21 @@
 //네비게이션 라이브러리 import
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
 
 //스크린 페이지 import
-import HomeScreen from './screens/HomeScreen';
-import SearchScreen from './screens/SearchScreen';
-import DetailScreen from './screens/DetailScreen';
-import LoginScreen from './screens/LoginScreen_N';
-import PostDetail from './screens/PostDetail';
-import Auth from './functions/auth';
-import Post from './screens/PostScreen';
-import Show from './screens/PostShowScreen';
-import Load from './screens/LoadingScreen';
-import Forward from './screens/APITestForward';
-import Middle from './screens/APITestMiddle';
-import End from './screens/APITestEnd';
+import HomeScreen from "./screens/HomeScreen";
+import SearchScreen from "./screens/SearchScreen";
+import DetailScreen from "./screens/DetailScreen";
+import LoginScreen from "./screens/LoginScreen_N";
+import PostDetail from "./screens/PostDetail";
+import Auth from "./functions/auth";
+import Post from "./screens/PostScreen";
+import Show from "./screens/PostShowScreen";
+import Load from "./screens/LoadingScreen";
+import Forward from "./screens/APITestForward";
+import Middle from "./screens/APITestMiddle";
+import End from "./screens/APITestEnd";
 import Reading from "./screens/ReadingRoom";
 
 const Stack = createNativeStackNavigator();
