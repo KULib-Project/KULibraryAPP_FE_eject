@@ -29,9 +29,9 @@ export default function LoginScreen({ navigation }) {
       setNaverToken(result);
     });
   }, []);
+
   useEffect(() => {
     if (naverToken !== null) {
-      console.log("useEffect");
       getUserProfile();
     }
     return () => setIsLoding(false); // cleanup function

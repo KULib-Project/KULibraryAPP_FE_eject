@@ -59,9 +59,8 @@ const PostList = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <Text>될까요?</Text>
       {isLoding ? (
-        <ActivityIndicator />
+        <Text>Loading...</Text>
       ) : (
         <FlatList
           style={styles.searchBoxList}
