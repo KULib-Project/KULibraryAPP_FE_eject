@@ -17,6 +17,7 @@ import Forward from "./screens/APITestForward";
 import Middle from "./screens/APITestMiddle";
 import End from "./screens/APITestEnd";
 import Reading from "./screens/ReadingRoom";
+import Main from "./screens/main";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Detail" component={DetailScreen} />
+
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Auth" component={Auth} />
         <Stack.Screen name="Post" component={Post} />
@@ -40,6 +42,7 @@ function App() {
         <Stack.Screen name="Middle" component={Middle} />
         <Stack.Screen name="End" component={End} />
         <Stack.Screen name="Reading" component={Reading} />
+        <Stack.Screen name="Main" component={Main} />
       </Stack.Navigator>
     </NavigationContainer>
   );
