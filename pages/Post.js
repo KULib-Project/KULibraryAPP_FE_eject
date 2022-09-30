@@ -1,22 +1,31 @@
 import React from 'react';
-import { StyleSheet,Text,ScrollView, View,TextInput } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import {KeyboardAvoidingView,TouchableWithoutFeedback,Keyboard, SafeAreaView,TouchableOpacity,StyleSheet,Text,ScrollView, View,TextInput,StatusBar} from 'react-native';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/AntDesign'
 // import Icon from 'react-native-vector-icons/FontAwesome'
 
 function Post({ navigation }) {
   return (
-    <View style={styles.container}>
+<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+
+    <SafeAreaView style={styles.container}>
+        
+        <StatusBar backgroundColor="transparent" barStyle="dark-content" />
         <View style={styles.topBtn}>
-            <TouchableOpacity onPress={() => navigation.navigate("Board")}>
-                <Text>X</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Board")} >
+            <Icon name="close" size={25} color="#222" /> 
             </TouchableOpacity>
             <TouchableOpacity>
-                <Text>완료</Text>
+                <Text style={{fontWeight:"bold",fontSize:14}}>완료</Text>
             </TouchableOpacity>
         </View>
-        
-        <View style={[styles.postBox]}>
+ 
+        <View style={{flex:19,width:"90%"}}>       
+        <KeyboardAvoidingView
+      // style={styles.rootContainer}
+      behavior="padding"
+      enabled
+  > 
         <TextInput
         multiline={true}
         style={styles.inputTitle}
@@ -33,14 +42,18 @@ function Post({ navigation }) {
         // value={text}
         placeholder="내용을 입력해주세요"
       />
+
         <TouchableOpacity>
-            <Text>📷</Text>
+        <Icon name="picture" size={25} color="#222" /> 
         </TouchableOpacity>
-        
         </View>
         
+      </KeyboardAvoidingView>   
         </View>
-    </View>
+      
+    </SafeAreaView> 
+    
+</TouchableWithoutFeedback>
   );
 }
 
@@ -54,42 +67,32 @@ const styles=StyleSheet.create({
         backgroundColor:"#fff"
     },
     topBtn:{
-        height:30,
+        flex:1,
         flexDirection:"row",
-        width:330,
+        width:"90%",
         justifyContent:"space-between",
-        
-    },
-    postBox:{
-        flex:0.85,
-        flexDirection:"column",
-        alignItems:"flex-start",
-        padding:20,
-        paddingTop:0,
-    
+        marginTop:"5%"
     },
     postSubBox:{
-        height:900,
-        width:330,
         flexDirection:"column",
-        paddingTop:0,
         alignItems:"flex-start",
         justifyContent:"flex-start",
-    
     },
     inputTitle:{
-        height:50,
-        width:330,
         textAlignVertical:"center",
         alignItems:"center",
         justifyContent:"center",
         flexDirection:"column",
+        fontSize:20,
+        fontWeight:"900",
+        paddingTop:"4%",
+        paddingBottom:"4%"
     },
     inputBody:{
-        height:600,
-        width:330,
-        textAlignVertical:"top"
-        
+        fontSize:16,
+        height:"90%",
+        textAlignVertical:"top",
+
     },
 
 })

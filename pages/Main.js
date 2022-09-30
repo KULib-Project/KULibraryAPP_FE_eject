@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {TouchableOpacity,Text, View,ScrollView,TextInput} from 'react-native';
+import {StatusBar,KeyboardAvoidingView,TouchableWithoutFeedback,Keyboard,TouchableOpacity,Text, View,ScrollView,TextInput} from 'react-native';
 import { StyleSheet } from "react-native";
 
 
@@ -11,9 +11,11 @@ function Main({ navigation }) {
   const [isChecked, checked] = useState(true);
   const [text, onChangeText] = React.useState("");
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        
     <View style={styles.container}>
+    <StatusBar backgroundColor="transparent" barStyle="dark-content" />
       <View style={styles.searchBox}>
-      
       <TextInput
         style={styles.input}
         onChangeText={onChangeText}
@@ -23,6 +25,7 @@ function Main({ navigation }) {
       {/* 버튼 요소 추가해야함 */}
       <Icon style={styles.searchIcon} name="search1" size={25} color="#000"/> 
       </View>
+      
       <View style={styles.libOpenContainer}>
         <Text style={[styles.libOpenText,{fontSize:20, textAlign:'left',marginLeft:5}]}>2022/09/26(월) 개관시간</Text>
         <Text />
@@ -122,6 +125,7 @@ function Main({ navigation }) {
       </ScrollView>
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -136,10 +140,10 @@ const styles = StyleSheet.create({
   },
   searchBox:{
     backgroundColor:"#fff",
-    width:345,
-    height:40,
+    width:"93%",
+    height:"6%",
     padding:5,
-    marginBottom:30,
+    marginBottom:"6%",
     borderWidth:3,
     borderColor:"#A82926",
     borderRadius:7,
@@ -151,9 +155,9 @@ const styles = StyleSheet.create({
     color:"#A82926",
   },
   btnMain: {
-    margin: 2,
-    padding: 2,
-    width: 170,
+    margin: "1%",
+    padding: "1%",
+    width: "45%",
     height: 70,
     backgroundColor: '#02A2AB',
     borderRadius: 7,
@@ -172,31 +176,35 @@ const styles = StyleSheet.create({
   libOpenContainer: {
     borderRadius: 7,
     backgroundColor: '#A82926',
-    padding: 7,
+    padding: "2%",
     paddingBottom:0,
-    margin: 2,
+    margin: 0,
+    alignItems:"baseline",
+    justifyContent:"center"
   },
   libOpen: {
     flexDirection: 'row',
+    alignItems:"center",
+    justifyContent:"center"
   },
   libOpenBox: {
     flexDirection: 'column',
-    width: 110,
+    width: "30.7%",
     height: 60,
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 10,
-    marginTop: 10,
+    marginBottom: "3%",
+    marginTop: "3%",
     borderLeftWidth:0.5,
   },
   libOpenBox01: {
     flexDirection: 'column',
-    width: 110,
+    width: "30.7%",
     height: 60,
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 10,
-    marginTop: 10,
+    marginBottom: "3%",
+    marginTop: "3%",
   },
   libOpenText: {
     color: '#fff',
@@ -206,17 +214,18 @@ const styles = StyleSheet.create({
   },
   bookLi:{
     flexDirection:"row",
-    alignItems:"baseline",
+    alignItems:"center",
     justifyContent:"space-between",
     marginTop:4,
     marginBottom:4,
-    width:280,
+    width:"83%",
+    
   },
   ListBox:{
-    width:344,
+    width:"82.9%",
     backgroundColor:'#fff',
     margin:4,
-    padding:10,
+    padding:"2%",
     borderRadius:7,
   },
   
