@@ -59,7 +59,7 @@ const PostList = ({ navigation }) => {
   return (
     <SafeAreaView>
       <View>
-        <ScrollView>{RenderBoard()}</ScrollView>
+        <ScrollView style={styles.postContainer}>{RenderBoard()}</ScrollView>
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => navigation.navigate("Post")}
@@ -76,6 +76,10 @@ const PostList = ({ navigation }) => {
 export default PostList;
 
 const styles = StyleSheet.create({
+  postContainer: {
+    padding: 5,
+    height: "80%",
+  },
   postBox: {
     flexDirection: "column",
     alignItems: "baseline",
@@ -119,6 +123,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     right: 30,
-    bottom: -520,
+    marginTop: "100%",
   },
 });

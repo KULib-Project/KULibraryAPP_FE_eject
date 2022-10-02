@@ -31,7 +31,7 @@ export default function PostDetail({ navigation, route }) {
   const [comments, setComments] = useState();
   /** 댓글 입력 값 저장 */
   const [ccontent, setcontent] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
@@ -40,20 +40,48 @@ export default function PostDetail({ navigation, route }) {
       .then((response) => {
         setComments(response.data);
       })
+      .catch(console.error)
       .finally(() => setIsLoading(false));
   }, []);
 
   const getDetail = () => {
-    if (!isLoading) {
-      const id = route.params.itemData.id;
-      console.log(id);
-      console.log("==========================");
-      console.log(comments);
-      comments.comment.commentsList.map((c) => {
-        console.log("댓글댓글" + c.content);
+    if (isLoading) {
+      return <Text>Loading...</Text>;
+    } else {
+      /**
+       * "createdDate":"2022-07-19T22:21:01",
+       * "modifiedDate":"2022-07-19T22:21:01",
+       * "cmt_id":1,
+       * "content":"대댓글 테스트2",
+       * "commentDepth":0,
+       * "commentGroup":null,
+       * "commentCount":1,
+       * "commentDel":"YES"
+       */
+      return comments.comment.commentsList.map((c) => {
+        <View key={c.cmt_id} style={styles.commentBox}>
+          <Text>{`cmt_id: ${c.cmt_id}`}</Text>
+          <Text>{`createdDate: ${c.createdDate}`}</Text>
+          <Text>{`content: ${c.content}`}</Text>
+        </View>;
       });
-      console.log("++++++++++++++++++++++++++");
     }
   };
-  return <View>{getDetail()}</View>;
+  return <View style={styles.commentContainer}>{getDetail()}</View>;
 }
+
+const styles = StyleSheet.create({
+  commentContainer: {
+    height: "80%",
+    padding: 10,
+    marginTop: 5,
+  },
+  commentBox: {
+    marginTop: 50,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#ffffff",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+});
