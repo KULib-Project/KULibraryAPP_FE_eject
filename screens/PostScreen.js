@@ -12,7 +12,6 @@ import {
   placeholder,
 } from "react-native";
 import axios from "axios";
-import DropDownPicker from "react-native-dropdown-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Post = ({ navigation }) => {
@@ -52,6 +51,7 @@ const Post = ({ navigation }) => {
         email: `"${email}"`,
         content: text,
         title: title,
+        user_id: id,
       })
       .then(function (response) {
         console.log(email, title, text, id);

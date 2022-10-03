@@ -11,7 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const PostList = ({ navigation }) => {
   const [data, setData] = useState([]);
-  const [isLoding, setIsLoding] = useState(false);
+  const [isLoding, setIsLoding] = useState(true);
 
   useEffect(() => {
     setIsLoding(true);
@@ -78,7 +78,7 @@ export default PostList;
 const styles = StyleSheet.create({
   postContainer: {
     padding: 5,
-    height: "80%",
+    height: "100%",
   },
   postBox: {
     flexDirection: "column",
