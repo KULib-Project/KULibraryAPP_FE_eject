@@ -18,6 +18,7 @@ import Middle from "./screens/APITestMiddle";
 import End from "./screens/APITestEnd";
 import Reading from "./screens/ReadingRoom";
 import Main from "./screens/main";
+import Golink from "./screens/LinkScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +44,7 @@ function App() {
         <Stack.Screen name="End" component={End} />
         <Stack.Screen name="Reading" component={Reading} />
         <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="Golink" component={Golink} />
       </Stack.Navigator>
     </NavigationContainer>
   );

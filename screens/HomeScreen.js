@@ -29,6 +29,7 @@ function HomeScreen({ navigation }) {
       />
       <Button title="API Test End" onPress={() => navigation.navigate("End")} />
       <Button title="Main" onPress={() => navigation.navigate("Main")} />
+      <Button title="Link" onPress={() => navigation.navigate("Golink")} />
     </View>
   );
 }

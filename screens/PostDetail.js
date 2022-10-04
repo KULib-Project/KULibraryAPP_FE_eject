@@ -107,6 +107,7 @@ export default function PostDetail({ navigation, route }) {
      * "commentDel":"YES"
      */
     return comments.comment.commentsList.map((c) => {
+      console.log("cccc = ", c);
       <View key={c.cmt_id} style={styles.commentBox}>
         <View
           style={{
