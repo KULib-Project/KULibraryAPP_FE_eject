@@ -2,17 +2,18 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  Button,
+  StatusBar,
   StyleSheet,
-  Alert,
+  SafeAreaView,
   TouchableOpacity,
-  Image,
+  KeyboardAvoidingView,
+  Keyboard,
   TextInput,
-  Platform,
-  placeholder,
+  TouchableWithoutFeedback,
 } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Icon from "react-native-vector-icons/AntDesign";
 
 const Post = ({ navigation }) => {
   const [isLoding, setIsLoding] = useState(false);
@@ -48,7 +49,7 @@ const Post = ({ navigation }) => {
     //현재 문제점, 데이터를 입력해도 null만 뜬다. 게시글 등록 완료라고는 뜨지만 등록이 안됨.
     axios
       .post("https://library-2022.herokuapp.com/community/save", {
-        email: `"${email}"`,
+        email: email,
         content: text,
         title: title,
         user_id: id,
@@ -64,70 +65,86 @@ const Post = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.boxOne}>
-      <View style={styles.action}>
-        <TextInput
-          placeholder={"제목을 입력하세요"}
-          style={styles.textInput}
-          autoComplete={"off"}
-          autoCapitalize={"none"}
-          onChangeText={(title) => setTitle(title)}
-        />
-      </View>
-      <View style={[styles.action, { marginTop: 10 }]}>
-        <TextInput
-          placeholder={"본문 내용을 입력하세요"}
-          style={[styles.textInput, { height: 180 }]}
-          autoComplete={"off"}
-          autoCapitalize={"none"}
-          multiline={true}
-          onChangeText={(text) => setText(text)}
-        />
-      </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <SafeAreaView style={styles.container}>
+        <StatusBar backgroundColor="transparent" barStyle="dark-content" />
+        <View style={styles.topBtn}>
+          <TouchableOpacity onPress={() => navigation.navigate("Show")}>
+            <Icon name="close" size={25} color="#222" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => postUser()}>
+            <Text style={{ fontWeight: "bold", fontSize: 14 }}>완료</Text>
+          </TouchableOpacity>
+        </View>
 
-      <View style={styles.button}>
-        <TouchableOpacity
-          style={[styles.signIn, { backgroundColor: "#FF8000" }]}
-          onPress={() => postUser()}
-        >
-          <Text
-            style={[
-              styles.textSign,
-              {
-                color: "#fff",
-              },
-            ]}
+        <View style={{ flex: 19, width: "90%" }}>
+          <KeyboardAvoidingView
+            // style={styles.rootContainer}
+            behavior="padding"
+            enabled
           >
-            등록하기
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+            <TextInput
+              style={styles.inputTitle}
+              onChangeText={(title) => setTitle(title)}
+              placeholder={"제목을 입력하세요"}
+              autoComplete={"off"}
+              autoCapitalize={"none"}
+            />
+            <View style={[styles.postSubBox]}>
+              <TextInput
+                multiline={true}
+                style={[styles.inputBody]}
+                onChangeText={(text) => setText(text)}
+                placeholder="내용을 입력해주세요"
+                autoComplete={"off"}
+                autoCapitalize={"none"}
+              />
+
+              <TouchableOpacity>
+                <Icon name="picture" size={25} color="#222" />
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+        </View>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 
 export default Post;
 
 const styles = StyleSheet.create({
-  boxOne: {
+  container: {
     flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#fff",
   },
-  rowWrapper: {
+  topBtn: {
+    flex: 1,
     flexDirection: "row",
+    width: "90%",
+    justifyContent: "space-between",
+    marginTop: "5%",
   },
-  columnWrapper: {
+  postSubBox: {
     flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
   },
-  action: {
-    flexDirection: "row",
-    marginTop: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#f2f2f2",
-    paddingBottom: 5,
-  },
-  button: {
+  inputTitle: {
+    textAlignVertical: "center",
     alignItems: "center",
-    marginTop: 50,
+    justifyContent: "center",
+    flexDirection: "column",
+    fontSize: 20,
+    fontWeight: "900",
+    paddingTop: "4%",
+    paddingBottom: "4%",
+  },
+  inputBody: {
+    fontSize: 16,
+    height: "90%",
+    textAlignVertical: "top",
   },
 });

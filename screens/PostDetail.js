@@ -32,7 +32,7 @@ export default function PostDetail({ navigation, route }) {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const getCommunity = () => {
+  const GetCommunity = () => {
     if (isLoading) {
       return <Text>Loading...</Text>;
     } else {
@@ -46,7 +46,7 @@ export default function PostDetail({ navigation, route }) {
               {comments.communityDetail[0].content}
             </Text>
             {/*댓글 출력*/}
-            {getComments()}
+            <GetComments />
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
@@ -95,7 +95,7 @@ export default function PostDetail({ navigation, route }) {
     }
   };
 
-  const getComments = () => {
+  const GetComments = () => {
     /**
      * "createdDate":"2022-07-19T22:21:01",
      * "modifiedDate":"2022-07-19T22:21:01",
@@ -107,7 +107,7 @@ export default function PostDetail({ navigation, route }) {
      * "commentDel":"YES"
      */
     return comments.comment.commentsList.map((c) => {
-      <View>
+      <View key={c.cmt_id} style={styles.commentBox}>
         <View
           style={{
             flexDirection: "row",
@@ -117,7 +117,7 @@ export default function PostDetail({ navigation, route }) {
             paddingTop: "1%",
           }}
         >
-          <Text style={{ fontSize: 18, fontWeight: "bold" }}>전채원</Text>
+          <Text style={{ fontSize: 18, fontWeight: "bold" }}>최정대</Text>
           <View
             style={{
               flexDirection: "row",
@@ -134,7 +134,7 @@ export default function PostDetail({ navigation, route }) {
             </TouchableOpacity>
           </View>
         </View>
-        <Text style={styles.textComment}>{`${c.content}`}</Text>
+        <Text style={styles.textComment}>{c.content}</Text>
       </View>;
     });
   };
@@ -144,7 +144,6 @@ export default function PostDetail({ navigation, route }) {
       <StatusBar backgroundColor="transparent" barStyle="dark-content" />
       <View style={styles.topBtn}>
         <TouchableOpacity onPress={() => navigation.navigate("Show")}>
-          {/* <Text style={{fontSize:30}}>⬅︎</Text> */}
           <Icon name="arrowleft" size={25} color="#222" />
         </TouchableOpacity>
         <Text
@@ -159,7 +158,7 @@ export default function PostDetail({ navigation, route }) {
         </Text>
       </View>
 
-      {getCommunity()}
+      <GetCommunity />
 
       <View style={styles.inputCommentBox}>
         {/* 댓글 줄이 늘어남에 따라 상자가 점점 커지도록 */}

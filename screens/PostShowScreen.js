@@ -123,6 +123,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     right: 30,
-    marginTop: "100%",
+    marginTop: "115%",
   },
 });

@@ -85,14 +85,13 @@ export default function LoginScreen({ navigation }) {
 
   // 유저 정보 DB에 저장
   const giveNaverUser = async (accessToken, nUser) => {
-    console.log("엔유저", nUser);
     const giveUser = await axios
       .post("https://library-2022.herokuapp.com/auth/google/user", {
-        accessToken: `"${accessToken.accessToken}"`,
+        accessToken: accessToken.accessToken,
         userInfo: {
-          id: `"${JSON.stringify(nUser.response.id)}"`,
-          email: `"${JSON.stringify(nUser.response.email)}"`,
-          name: `"${JSON.stringify(nUser.response.name)}"`,
+          id: nUser.response.id,
+          email: nUser.response.email,
+          name: nUser.response.name,
         },
       })
       .then((response) => {
