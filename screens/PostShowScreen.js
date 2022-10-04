@@ -76,34 +76,30 @@ const PostList = ({ navigation }) => {
 export default PostList;
 
 const styles = StyleSheet.create({
-  postContainer: {
-    padding: 5,
-    height: "100%",
-  },
   postBox: {
     flexDirection: "column",
     alignItems: "baseline",
     justifyContent: "space-between",
     backgroundColor: "#fff",
     height: 80,
-    padding: 7,
-    paddingLeft: 20,
+    padding: "2%",
+    paddingLeft: "2%",
     borderBottomWidth: 0.2,
   },
   postSubBox: {
-    width: 350,
+    width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
   },
   subInfo: {
-    width: 90,
+    width: "24%",
     flexDirection: "row",
     justifyContent: "space-between",
   },
   postBtn: {
     backgroundColor: "#fff",
     borderRadius: 40,
-    width: 60,
+    width: "20%",
     padding: 5,
     alignItems: "center",
     justifyContent: "center",
@@ -118,11 +114,9 @@ const styles = StyleSheet.create({
   },
   touchableOpacityStyle: {
     position: "absolute",
-    width: 330,
-    // height: 100,
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    right: 30,
-    marginTop: "115%",
+    bottom: "-10%",
   },
 });
