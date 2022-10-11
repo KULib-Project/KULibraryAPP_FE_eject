@@ -18,19 +18,37 @@ export default function PostDetail({ navigation, route }) {
   // API 쿼리 값 저장
   const [comments, setComments] = useState();
   /** 댓글 입력 값 저장 */
-  const [ccontent, setcontent] = useState("");
+  const [cmtcontent, setCmtcontent] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
+    console.log(route.params);
     axios
-      .get("https://ea6717d8-601b-42a2-b0e6-1c5f0ea9f1a1.mock.pstmn.io/id=1")
+      .get(
+        `https://library-2022.herokuapp.com/community/detail?id=${route.params.itemData.id}`
+      )
       .then((response) => {
         setComments(response.data);
       })
       .catch(console.error)
       .finally(() => setIsLoading(false));
   }, []);
+
+  const postComment = () => {
+    const temp = {
+      content: cmtcontent,
+      email: route.params.itemData.email,
+      id: comments.comment.commentsList.length + 1,
+    };
+    console.log(temp);
+    axios
+      .post("https://library-2022.herokuapp.com/comments/save", temp)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch(console.error);
+  };
 
   const GetCommunity = () => {
     if (isLoading) {
@@ -40,39 +58,41 @@ export default function PostDetail({ navigation, route }) {
         <View style={{ height: "80%", width: "90%" }}>
           <ScrollView>
             <Text style={styles.textTitle}>
-              {comments.communityDetail[0].title}
+              {comments?.communityDetail[0].title}
             </Text>
             <Text style={styles.textContent}>
-              {comments.communityDetail[0].content}
+              {comments?.communityDetail[0].content}
             </Text>
             {/*댓글 출력*/}
-            <GetComments />
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Icon
-                name="enter"
-                size={25}
-                color="#222"
-                style={{ transform: [{ rotateY: "180deg" }] }}
-              />
-              <View style={styles.recommentBox}>
+            {/**
+             * "createdDate":"2022-07-19T22:21:01",
+             * "modifiedDate":"2022-07-19T22:21:01",
+             * "cmt_id":1,
+             * "content":"대댓글 테스트2",
+             * "commentDepth":0,
+             * "commentGroup":null,
+             * "commentCount":1,
+             * "commentDel":"YES"
+             */}
+            {comments?.comment.commentsList.map((c) => (
+              <View key={c.cmt_id} style={styles.commentBox}>
                 <View
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
                     paddingBottom: "4%",
+                    paddingTop: "1%",
                   }}
                 >
                   <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                    전채원
+                    최정대
                   </Text>
                   <View
                     style={{
                       flexDirection: "row",
                       justifyContent: "space-between",
-                      width: "20%",
+                      width: "16%",
                       alignItems: "center",
                     }}
                   >
@@ -84,60 +104,59 @@ export default function PostDetail({ navigation, route }) {
                     </TouchableOpacity>
                   </View>
                 </View>
-                <Text style={styles.textComment}>
-                  대댓글의 내용이다 키킷키키키키키키킷킷 키릿키ㅣㅅ리
-                </Text>
+                <Text style={styles.textComment}>{c.content}</Text>
+                <View
+                  style={{
+                    marginTop: 25,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Icon
+                    name="enter"
+                    size={25}
+                    color="#222"
+                    style={{ transform: [{ rotateY: "180deg" }] }}
+                  />
+                  <View style={styles.recommentBox}>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        paddingBottom: "4%",
+                      }}
+                    >
+                      <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                        전채원
+                      </Text>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          width: "20%",
+                          alignItems: "center",
+                        }}
+                      >
+                        <TouchableOpacity>
+                          <Text>대댓글</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                          <Text>:</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                    <Text style={styles.textComment}>
+                      대댓글의 내용이다 키킷키키키키키키킷킷 키릿키ㅣㅅ리
+                    </Text>
+                  </View>
+                </View>
               </View>
-            </View>
+            ))}
           </ScrollView>
         </View>
       );
     }
-  };
-
-  const GetComments = () => {
-    /**
-     * "createdDate":"2022-07-19T22:21:01",
-     * "modifiedDate":"2022-07-19T22:21:01",
-     * "cmt_id":1,
-     * "content":"대댓글 테스트2",
-     * "commentDepth":0,
-     * "commentGroup":null,
-     * "commentCount":1,
-     * "commentDel":"YES"
-     */
-    return comments.comment.commentsList.map((c) => {
-      console.log("cccc = ", c);
-      <View key={c.cmt_id} style={styles.commentBox}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingBottom: "4%",
-            paddingTop: "1%",
-          }}
-        >
-          <Text style={{ fontSize: 18, fontWeight: "bold" }}>최정대</Text>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              width: "16%",
-              alignItems: "center",
-            }}
-          >
-            <TouchableOpacity>
-              <Text>대댓글</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text>:</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Text style={styles.textComment}>{c.content}</Text>
-      </View>;
-    });
   };
 
   return (
@@ -176,11 +195,15 @@ export default function PostDetail({ navigation, route }) {
               multiline={true}
               textAlignVertical="center"
               style={[styles.inputComment]}
+              onChangeText={(cmt) => setCmtcontent(cmt)}
               placeholder="댓글을 입력해주세요"
               autoFocus={true}
             />
           </View>
-          <TouchableOpacity style={styles.commentSubit}>
+          <TouchableOpacity
+            onPress={() => postComment()}
+            style={styles.commentSubit}
+          >
             <Text
               style={{ fontSize: 15, color: "#A82926", fontWeight: "bold" }}
             >
@@ -208,7 +231,7 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     paddingTop: "7%",
-    paddingBottom: "2%",
+    paddingBottom: "4%",
     fontSize: 30,
     fontWeight: "bold",
   },
@@ -227,6 +250,7 @@ const styles = StyleSheet.create({
     padding: "4%",
     backgroundColor: "#ccc",
     borderRadius: 10,
+    marginBottom: -38,
   },
   inputCommentBox: {
     width: "99%",
@@ -252,7 +276,6 @@ const styles = StyleSheet.create({
     paddingTop: "4%",
   },
   commentSubit: {
-    // padding:"3%",
     paddingRight: "3%",
   },
 });

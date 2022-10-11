@@ -20,7 +20,6 @@ const PostList = ({ navigation }) => {
       .then(function (response) {
         //console.log(response);
         setData(response.data);
-        console.log(data);
       })
       .catch(console.error)
       .finally(() => setIsLoding(false));
