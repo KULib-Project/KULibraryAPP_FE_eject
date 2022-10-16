@@ -23,8 +23,9 @@ export default function PostDetail({ navigation, route }) {
   const [cmtcontent, setCmtcontent] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [inputComment, setInputComment] = useState(false);
+
+  // 대댓글 입력 상태 관리
   const [ccoment, setCComent] = useState(-1);
-  const ccomentMap = new Map();
 
   /**
    * 선택한 게시글의 세부 정보를 파싱해오는 함수
@@ -39,7 +40,6 @@ export default function PostDetail({ navigation, route }) {
       )
       .then((response) => {
         setComments(response.data);
-        console.log("왜 안돼", response.data);
       })
       .catch(console.error)
       .finally(() => setIsLoading(false));
@@ -107,7 +107,14 @@ export default function PostDetail({ navigation, route }) {
             </Text>
             {/*댓글 출력*/}
             {comments.commentsList.map((c) => (
-              <View key={c.cmt_id} style={styles.commentBox}>
+              <View
+                key={c.cmt_id}
+                style={
+                  c.cmt_id === ccoment
+                    ? styles.commentBox_selected
+                    : styles.commentBox
+                }
+              >
                 <View
                   style={{
                     flexDirection: "row",
@@ -130,7 +137,9 @@ export default function PostDetail({ navigation, route }) {
                   >
                     <TouchableOpacity
                       onPress={() => {
-                        setCComent(c.cmt_id);
+                        c.cmt_id !== ccoment
+                          ? setCComent(c.cmt_id)
+                          : setCComent(-1);
                       }}
                     >
                       <Text>대댓글</Text>
@@ -277,13 +286,19 @@ const styles = StyleSheet.create({
   },
   textContent: {
     fontSize: 20,
+    marginBottom: 20,
   },
   textComment: {
     fontSize: 20,
   },
   commentBox: {
-    padding: "10%",
+    padding: "5%",
     paddingLeft: 0,
+  },
+  commentBox_selected: {
+    padding: "5%",
+    paddingLeft: 0,
+    backgroundColor: "#ffc0cb",
   },
   recommentBox: {
     width: "88%",
