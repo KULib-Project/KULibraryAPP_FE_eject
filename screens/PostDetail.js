@@ -10,6 +10,12 @@ import { ScrollView, TextInput } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/AntDesign";
 import axios from "axios";
 
+// TODO
+// 0. 대댓글 API 값 전달 받아 표기
+// 1. 댓글에 해당 글 작성자 표기
+// 2. 댓글 작성 시간 표기 및 댓글 작성자 이름 API 연동 (현재는 껍데기 값)
+// 3. 게시글, 댓글 간 구분선 추가
+
 export default function PostDetail({ navigation, route }) {
   // API 쿼리 값 저장
   const [comments, setComments] = useState();
@@ -33,6 +39,7 @@ export default function PostDetail({ navigation, route }) {
       )
       .then((response) => {
         setComments(response.data);
+        console.log("왜 안돼", response.data);
       })
       .catch(console.error)
       .finally(() => setIsLoading(false));
@@ -101,7 +108,6 @@ export default function PostDetail({ navigation, route }) {
             {/*댓글 출력*/}
             {comments.commentsList.map((c) => (
               <View key={c.cmt_id} style={styles.commentBox}>
-                {console.log("c: ", c)}
                 <View
                   style={{
                     flexDirection: "row",
@@ -125,7 +131,6 @@ export default function PostDetail({ navigation, route }) {
                     <TouchableOpacity
                       onPress={() => {
                         setCComent(c.cmt_id);
-                        console.log(ccoment);
                       }}
                     >
                       <Text>대댓글</Text>
@@ -136,45 +141,53 @@ export default function PostDetail({ navigation, route }) {
                   </View>
                 </View>
                 <Text style={styles.textComment}>{c.content}</Text>
-                <View
-                  style={{
-                    marginTop: 25,
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Icon
-                    name="enter"
-                    size={25}
-                    color="#222"
-                    style={{ transform: [{ rotateY: "180deg" }] }}
-                  />
-                  <View style={styles.recommentBox}>
+                {comments.CcomentsList.map((cc) => {
+                  console.log("대댓글 비교", cc.commentGroup);
+                  if (cc.commentGroup !== c.cmt_id) {
+                    return;
+                  }
+
+                  return (
                     <View
                       style={{
+                        marginTop: 25,
                         flexDirection: "row",
                         justifyContent: "space-between",
-                        alignItems: "center",
-                        paddingBottom: "4%",
                       }}
+                      key={cc.cmt_id}
                     >
-                      <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                        전채원
-                      </Text>
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                          width: "20%",
-                          alignItems: "center",
-                        }}
-                      ></View>
+                      <Icon
+                        name="enter"
+                        size={25}
+                        color="#222"
+                        style={{ transform: [{ rotateY: "180deg" }] }}
+                      />
+                      <View style={styles.recommentBox}>
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            paddingBottom: "4%",
+                          }}
+                        >
+                          <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                            전채원
+                          </Text>
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                              width: "20%",
+                              alignItems: "center",
+                            }}
+                          ></View>
+                        </View>
+                        <Text style={styles.textComment}>{cc.content}</Text>
+                      </View>
                     </View>
-                    <Text style={styles.textComment}>
-                      대댓글의 내용이다 키킷키키키키키키킷킷 키릿키ㅣㅅ리
-                    </Text>
-                  </View>
-                </View>
+                  );
+                })}
               </View>
             ))}
           </ScrollView>
