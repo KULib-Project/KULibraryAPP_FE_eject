@@ -18,6 +18,21 @@ import Icon from "react-native-vector-icons/AntDesign";
 function Main({ navigation }) {
   const [isChecked, checked] = useState(true);
   const [text, onChangeText] = React.useState("");
+  const date = new Date();
+  console.log(date.getMonth);
+  const month =
+    date.getMonth() + 1 < 10
+      ? "0" + (date.getMonth() + 1)
+      : (date.getMonth() + 1).toString();
+  const dayMap = new Map([
+    [0, "일"],
+    [1, "월"],
+    [2, "화"],
+    [3, "수"],
+    [4, "목"],
+    [5, "금"],
+    [6, "토"],
+  ]);
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -43,7 +58,9 @@ function Main({ navigation }) {
               { fontSize: 20, textAlign: "left", marginLeft: 5 },
             ]}
           >
-            2022/09/26(월) 개관시간
+            {`${date.getFullYear()}/${month}/${date.getDate()}(${dayMap.get(
+              date.getDay()
+            )}) 개관시간`}
           </Text>
           <Text />
           <View style={[styles.libOpen, { borderBottomWidth: 0.2 }]}>
