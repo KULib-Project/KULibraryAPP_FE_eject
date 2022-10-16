@@ -1,13 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
-  FlatList,
   StyleSheet,
-  ActivityIndicator,
   TouchableOpacity,
   View,
-  Image,
-  Button,
   StatusBar,
 } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
@@ -20,7 +16,14 @@ export default function PostDetail({ navigation, route }) {
   /** 댓글 입력 값 저장 */
   const [cmtcontent, setCmtcontent] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [inputComment, setInputComment] = useState(false);
+  const [ccoment, setCComent] = useState(-1);
+  const ccomentMap = new Map();
 
+  /**
+   * 선택한 게시글의 세부 정보를 파싱해오는 함수
+   * 댓글 입력 이벤트가 발생하면 갱신할 수 있도록 함
+   */
   useEffect(() => {
     setIsLoading(true);
     console.log(route.params);
@@ -33,49 +36,72 @@ export default function PostDetail({ navigation, route }) {
       })
       .catch(console.error)
       .finally(() => setIsLoading(false));
-  }, []);
+    setInputComment(false);
+  }, [inputComment]);
 
-  const postComment = () => {
-    const temp = {
+  /**
+   * 댓글 입력 이벤트 동작 함수
+   */
+  const postComment = (cmt_id = -1) => {
+    // 공란 입력 방지
+    if (cmtcontent === "") {
+      return;
+    }
+
+    // 댓글 json
+    const cmtInfo = {
       content: cmtcontent,
       email: route.params.itemData.email,
-      id: comments.comment.commentsList.length + 1,
+      board_id: route.params.itemData.id,
     };
-    console.log(temp);
+
+    // 대댓글 json
+    const ccmtInfo = {
+      content: cmtcontent,
+      email: route.params.itemData.email,
+      board_id: route.params.itemData.id,
+      cmt_id: cmt_id,
+    };
+
+    // 대댓글 여부 판단
+    const info = cmt_id > -1 ? ccmtInfo : cmtInfo;
+    console.log("댓글 json", info);
     axios
-      .post("https://library-2022.herokuapp.com/comments/save", temp)
+      .post("https://library-2022.herokuapp.com/comments/save", info)
       .then((res) => {
         console.log(res.data);
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => {
+        setInputComment(true);
+        // 대댓글 입력 판정 초기화
+        setCComent(-1);
+        setCmtcontent("");
+      });
   };
 
+  /**
+   * 게시글과 댓글 View 출력
+   * @returns 게시글 Detail View + 댓글 View
+   */
   const GetCommunity = () => {
     if (isLoading) {
       return <Text>Loading...</Text>;
     } else {
       return (
         <View style={{ height: "80%", width: "90%" }}>
+          {console.log("comments", comments)}
           <ScrollView>
             <Text style={styles.textTitle}>
-              {comments?.communityDetail[0].title}
+              {comments.communityDetail[0].title}
             </Text>
             <Text style={styles.textContent}>
-              {comments?.communityDetail[0].content}
+              {comments.communityDetail[0].content}
             </Text>
             {/*댓글 출력*/}
-            {/**
-             * "createdDate":"2022-07-19T22:21:01",
-             * "modifiedDate":"2022-07-19T22:21:01",
-             * "cmt_id":1,
-             * "content":"대댓글 테스트2",
-             * "commentDepth":0,
-             * "commentGroup":null,
-             * "commentCount":1,
-             * "commentDel":"YES"
-             */}
-            {comments?.comment.commentsList.map((c) => (
+            {comments.commentsList.map((c) => (
               <View key={c.cmt_id} style={styles.commentBox}>
+                {console.log("c: ", c)}
                 <View
                   style={{
                     flexDirection: "row",
@@ -96,7 +122,12 @@ export default function PostDetail({ navigation, route }) {
                       alignItems: "center",
                     }}
                   >
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setCComent(c.cmt_id);
+                        console.log(ccoment);
+                      }}
+                    >
                       <Text>대댓글</Text>
                     </TouchableOpacity>
                     <TouchableOpacity>
@@ -137,14 +168,7 @@ export default function PostDetail({ navigation, route }) {
                           width: "20%",
                           alignItems: "center",
                         }}
-                      >
-                        <TouchableOpacity>
-                          <Text>대댓글</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                          <Text>:</Text>
-                        </TouchableOpacity>
-                      </View>
+                      ></View>
                     </View>
                     <Text style={styles.textComment}>
                       대댓글의 내용이다 키킷키키키키키키킷킷 키릿키ㅣㅅ리
@@ -196,12 +220,15 @@ export default function PostDetail({ navigation, route }) {
               textAlignVertical="center"
               style={[styles.inputComment]}
               onChangeText={(cmt) => setCmtcontent(cmt)}
+              value={cmtcontent}
               placeholder="댓글을 입력해주세요"
               autoFocus={true}
             />
           </View>
           <TouchableOpacity
-            onPress={() => postComment()}
+            onPress={() => {
+              postComment(ccoment);
+            }}
             style={styles.commentSubit}
           >
             <Text
