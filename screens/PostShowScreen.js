@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   StyleSheet,
@@ -18,7 +18,6 @@ const PostList = ({ navigation }) => {
     axios
       .get("https://library-2022.herokuapp.com/community")
       .then(function (response) {
-        //console.log(response);
         setData(response.data);
       })
       .catch(console.error)
@@ -37,6 +36,7 @@ const PostList = ({ navigation }) => {
             navigation.navigate("PostDetail", { itemData: post });
           }}
         >
+          {console.log(post)}
           <View style={styles.postBox}>
             <Text>{`${post.title}`}</Text>
             <Text>{`${post.content}`}</Text>
@@ -46,7 +46,6 @@ const PostList = ({ navigation }) => {
               </Text>
               <View style={styles.subInfo}>
                 <Text>{`조회수 ${post.view_count}  `}</Text>
-                <Text>댓글수</Text>
               </View>
             </View>
           </View>
@@ -61,10 +60,10 @@ const PostList = ({ navigation }) => {
         <ScrollView style={styles.postContainer}>{RenderBoard()}</ScrollView>
         <TouchableOpacity
           activeOpacity={0.7}
+          style={styles.postBtn}
           onPress={() => navigation.navigate("Post")}
-          style={styles.touchableOpacityStyle}
         >
-          <View style={styles.postBtn}>
+          <View style={styles.touchableOpacityStyle}>
             <Text>글쓰기</Text>
           </View>
         </TouchableOpacity>
@@ -100,6 +99,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     width: "20%",
     padding: 5,
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 0.2,
@@ -110,9 +110,10 @@ const styles = StyleSheet.create({
       height: 1,
       width: 1,
     },
+
+    marginTop: "2%",
   },
   touchableOpacityStyle: {
-    position: "absolute",
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
