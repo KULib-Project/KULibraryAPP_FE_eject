@@ -8,7 +8,10 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 function ReadPost({ navigation }) {
   return (
-    
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? "padding" : null}
+        style={{ flex: 1 }}
+    > 
     <View style={styles.container}>
         <StatusBar backgroundColor="transparent" barStyle="dark-content" />
         <View style={styles.topBtn}>
@@ -78,6 +81,7 @@ The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for t
       </View>
       </View>
     </View>
+    </KeyboardAvoidingView>
   );
 }
 

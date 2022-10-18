@@ -9,25 +9,44 @@ import Icon from 'react-native-vector-icons/AntDesign'
 
 function Main({ navigation }) {
   const [isChecked, checked] = useState(true);
-  const [text, onChangeText] = React.useState("");
+  // const [text, onChangeText] = React.useState("");
+  const date = new Date();
+  console.log(date.getMonth);
+  const month =
+    date.getMonth() + 1 < 10
+      ? "0" + (date.getMonth() + 1)
+      : (date.getMonth() + 1).toString();
+  const dayMap = new Map([
+    [0, "일"],
+    [1, "월"],
+    [2, "화"],
+    [3, "수"],
+    [4, "목"],
+    [5, "금"],
+    [6, "토"],
+  ]);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         
     <View style={styles.container}>
     <StatusBar backgroundColor="transparent" barStyle="dark-content" />
+    
       <View style={styles.searchBox}>
-      <TextInput
-        style={styles.input}
+      {/* <TextInput
+       style={styles.input}
         onChangeText={onChangeText}
         value={text}
         placeholder="검색 키워드 입력"
-      />
+      /> */}
+      <TouchableOpacity style={styles.input} onPress={()=>navigation.navigate("Search")}><Text>검색 키워드 입력</Text></TouchableOpacity>
       {/* 버튼 요소 추가해야함 */}
       <Icon style={styles.searchIcon} name="search1" size={25} color="#000"/> 
       </View>
       
       <View style={styles.libOpenContainer}>
-        <Text style={[styles.libOpenText,{fontSize:20, textAlign:'left',marginLeft:5}]}>2022/09/26(월) 개관시간</Text>
+        <Text style={[styles.libOpenText,{fontSize:20, textAlign:'left',marginLeft:5}]}>{`${date.getFullYear()}/${month}/${date.getDate()}(${dayMap.get(
+              date.getDay()
+            )}) 개관시간`}</Text>
         <Text />
         <View style={[styles.libOpen, {borderBottomWidth: 0.2}]}>
           <View style={styles.libOpenBox01}>

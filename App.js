@@ -29,6 +29,9 @@ import Golink from "./pages/Golink"
 import Personal from './pages/Personal';
 import Post from './pages/Post';
 import ReadPost from './pages/ReadPost';
+import MainT from './pages/MainT';
+import Search from './pages/Search';
+import SearchRes from './pages/SearchResult';
 
 const Stack = createNativeStackNavigator();
 const Tab= createBottomTabNavigator();
@@ -58,6 +61,15 @@ function Home() {
                     ),
                     headerShown: false
                 }}/>
+        <Tab.Screen name="MainT" component={MainT}  options={{
+            tabBarIcon: () => (
+                <Icon
+                    name="meh"
+                    size={30}
+                />
+            ),
+            headerShown: false
+        }}/>
       <Tab.Screen name="Login" component={LoginScreen} options={{
                     tabBarIcon: () => (
                         <Icon
@@ -95,14 +107,17 @@ function App() {
         {/*  <Stack.Navigator initialRouteName="Home"> 초기 페이지 설정 */}
         {/* <Stack.Screen name="Home" -> 스크린 닉네임 이걸로 다른 페이지로 넘어가는 코드 짤 때 사용 component={HomeScreen}/> */}
         <Stack.Screen options={{ headerShown: false }} name="Main" component={Main}/>
+        <Stack.Screen options={{ headerShown: false }} name="MainT" component={MainT}/>
         <Stack.Screen  name="Board" component={Board} />
         <Stack.Screen name="Depart" component={Depart} />
         <Stack.Screen name="Studyclub" component={Studyclub} />
         <Stack.Screen  name="Golink" component={Golink} />
+        <Stack.Screen options={{ headerShown: false }} name="Search" component={Search} />
+        <Stack.Screen options={{ headerShown: false }} name="SearchRes" component={SearchRes} />
         <Stack.Screen options={{ headerShown: false }} name="Post" component={Post} />
         <Stack.Screen options={{ headerShown: false }} name="Read Post" component={ReadPost} />
         <Stack.Screen options={{ headerShown: false }}  name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen name="SearchS" component={SearchScreen} />
         <Stack.Screen  name="Detail" component={DetailScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Auth" component={Auth} />
