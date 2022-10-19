@@ -10,6 +10,13 @@ import axios from "axios";
 import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+const iosKeys = {
+  kConsumerKey: "7XmyJIpyoR1cwlKpQVPB",
+  kConsumerSecret: "0fjIeLW6Kb",
+  kServiceAppName: "KULibrary",
+  kServiceAppUrlScheme: "testapp" // only for iOS
+};
+
 const androidKeys = {
   kConsumerKey: "7XmyJIpyoR1cwlKpQVPB",
   kConsumerSecret: "0fjIeLW6Kb",

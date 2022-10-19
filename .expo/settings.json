@@ -5,6 +5,6 @@
   "minify": false,
   "urlRandomness": "yk-nz4",
   "https": false,
-  "devClient": true,
-  "scheme": "com.KUproject.LibFour"
+  "scheme": "com.KUproject.LibFour",
+  "devClient": true
 }
