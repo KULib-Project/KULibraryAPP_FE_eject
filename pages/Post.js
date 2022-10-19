@@ -1,10 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {KeyboardAvoidingView,TouchableWithoutFeedback,Keyboard, SafeAreaView,TouchableOpacity,StyleSheet,Text,ScrollView, View,TextInput,StatusBar} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign'
-
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Post({ navigation }) {
-
+  
+  const [isLoding, setIsLoding] = useState(false);
+  const [id, setId] = useState(0);
+  const [email, setEmail] = useState(0);
+  //유저 id 변수
+  const [title, setTitle] = useState("");
+  //post 제목
+  const [text, setText] = useState("");
+  // AsyncStorage.getItem("User", (error, result) => {
+  //   const UserInfo = JSON.parse(result);
+  //   setId(UserInfo.id);
+  //   setEmail(UserInfo.email);
+  // });
+  const postUser = () => {
+    //글 post해서 db에 데이터 넘겨주는 파트
+    //현재 문제점, 데이터를 입력해도 null만 뜬다. 게시글 등록 완료라고는 뜨지만 등록이 안됨.
+    axios
+      .post("https://library-2022.herokuapp.com/community/save", {
+        email: "cj9745@naver.com",
+        content: text,
+        title: title,
+        // user_id: id,
+      })
+      .then(function (response) {
+        console.log(email, title, text, id);
+        console.log("게시글 등록 완료");
+        navigation.replace("Board");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   return (
   
     <KeyboardAvoidingView 
@@ -21,7 +53,7 @@ function Post({ navigation }) {
             <TouchableOpacity onPress={() => navigation.navigate("Board")} >
             <Icon name="close" size={25} color="#222" /> 
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => postUser()}>
                 <Text style={{fontWeight:"bold",fontSize:14}}>완료</Text>
             </TouchableOpacity>
         </View>
@@ -30,6 +62,7 @@ function Post({ navigation }) {
         <TextInput
         multiline={true}
         style={styles.inputTitle}
+        onChangeText={(title) => setTitle(title)}
         autoFocus={true}
         // maxLength={4} //최대 글자수 제한 가능
         // onChangeText={onChangeText}
@@ -41,6 +74,7 @@ function Post({ navigation }) {
         multiline={true}
         style={[styles.inputBody]}
         autoFocus={true}
+        onChangeText={(text) => setText(text)}
         // onChangeText={onChangeText}
         // value={text}
         placeholder="내용을 입력해주세요"

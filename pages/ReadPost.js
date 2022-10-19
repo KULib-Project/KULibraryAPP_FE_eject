@@ -1,84 +1,259 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { KeyboardAvoidingView,StyleSheet,TouchableOpacity,Text, View,StatusBar } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import axios from "axios";
 
+// 대댓글 할 때 포인트 넣어주자
+function ReadPost({ navigation,route }) {
+      // API 쿼리 값 저장
+  const [comments, setComments] = useState();
+  /** 댓글 입력 값 저장 */
+  const [cmtcontent, setCmtcontent] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [inputComment, setInputComment] = useState(false);
 
+  // 대댓글 입력 상태 관리
+  const [ccoment, setCComent] = useState(-1);
 
-function ReadPost({ navigation }) {
+  /**
+   * 선택한 게시글의 세부 정보를 파싱해오는 함수
+   * 댓글 입력 이벤트가 발생하면 갱신할 수 있도록 함
+   */
+  useEffect(() => {
+    setIsLoading(true);
+    console.log(route.params);
+    axios
+      .get(
+        `https://library-2022.herokuapp.com/community/detail?id=${route.params.itemData.id}`
+      )
+      .then((response) => {
+        setComments(response.data);
+      })
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
+    setInputComment(false);
+  }, [inputComment]);
+
+  /**
+   * 댓글 입력 이벤트 동작 함수
+   */
+  const postComment = (cmt_id = -1) => {
+    // 공란 입력 방지
+    if (cmtcontent === "") {
+      return;
+    }
+
+    // 댓글 json
+    const cmtInfo = {
+      content: cmtcontent,
+      email: route.params.itemData.email,
+      board_id: route.params.itemData.id,
+    };
+
+    // 대댓글 json
+    const ccmtInfo = {
+      content: cmtcontent,
+      email: route.params.itemData.email,
+      board_id: route.params.itemData.id,
+      cmt_id: cmt_id,
+    };
+
+    // 대댓글 여부 판단
+    const info = cmt_id > -1 ? ccmtInfo : cmtInfo;
+    console.log("댓글 json", info);
+    axios
+      .post("https://library-2022.herokuapp.com/comments/save", info)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch(console.error)
+      .finally(() => {
+        setInputComment(true);
+        // 대댓글 입력 판정 초기화
+        setCComent(-1);
+        setCmtcontent("");
+      });
+  };
+
+  /**
+   * 게시글과 댓글 View 출력
+   * @returns 게시글 Detail View + 댓글 View
+   */
+  const GetCommunity = () => {
+    if (isLoading) {
+      return <Text>Loading...</Text>;
+    } else {
+      return (
+        <View style={{ height: "80%", width: "90%" }}>
+          {console.log("comments", comments)}
+          <ScrollView>
+            <Text style={styles.textTitle}>
+              {comments.communityDetail[0].title}
+            </Text>
+            <Text style={styles.textContent}>
+              {comments.communityDetail[0].content}
+            </Text>
+            {/*댓글 출력*/}
+            {comments.commentsList.map((c) => (
+              <View
+                key={c.cmt_id}
+                style={
+                  c.cmt_id === ccoment
+                    ? styles.commentBox_selected
+                    : styles.commentBox
+                }
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    paddingBottom: "4%",
+                    paddingTop: "1%",
+                  }}
+                >
+                  <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                    최정대
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      width: "16%",
+                      alignItems: "center",
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={() => {
+                        c.cmt_id !== ccoment
+                          ? setCComent(c.cmt_id)
+                          : setCComent(-1);
+                      }}
+                    >
+                      <Text>대댓글</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                      <Text>:</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <Text style={styles.textComment}>{c.content}</Text>
+                {comments.CcomentsList.map((cc) => {
+                  console.log("대댓글 비교", cc.commentGroup);
+                  if (cc.commentGroup !== c.cmt_id) {
+                    return;
+                  }
+
+                  return (
+                    <View
+                      style={{
+                        marginTop: 25,
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      }}
+                      key={cc.cmt_id}
+                    >
+                      <Icon
+                        name="enter"
+                        size={25}
+                        color="#222"
+                        style={{ transform: [{ rotateY: "180deg" }] }}
+                      />
+                      <View style={styles.recommentBox}>
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            paddingBottom: "4%",
+                          }}
+                        >
+                          <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                            전채원
+                          </Text>
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                              width: "20%",
+                              alignItems: "center",
+                            }}
+                          ></View>
+                        </View>
+                        <Text style={styles.textComment}>{cc.content}</Text>
+                      </View>
+                    </View>
+                  );
+                })}
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+      );
+    }
+  };
+
   return (
     <KeyboardAvoidingView 
     behavior={Platform.OS === "ios" ? "padding" : null}
         style={{ flex: 1 }}
     > 
-    <View style={styles.container}>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" />
-        <View style={styles.topBtn}>
-            <TouchableOpacity onPress={() => navigation.navigate("Board")}>
-                {/* <Text style={{fontSize:30}}>⬅︎</Text> */}
-                <Icon name="arrowleft" size={25} color="#222" /> 
-            </TouchableOpacity>
-            <Text style={{fontSize:20, fontWeight:"bold",textAlign:"center",marginLeft:"3%"}}>자유게시판</Text>
-        </View>
-        
-        <View style={{height:"80%", width:"90%"}}>
-            
-            <ScrollView>
-            <Text style={styles.textTitle}>Title</Text>
-            <Text style={styles.textContent}>
-                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-</Text>
-<View style={styles.commentBox}>
-    <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",paddingBottom:"4%",paddingTop:"1%"}}>
-    <Text style={{fontSize:18, fontWeight:"bold"}}>전채원</Text>
-    <View style={{flexDirection:'row',justifyContent:"space-between",width:"16%",alignItems:"center"}}>
-    <TouchableOpacity><Text>대댓글</Text></TouchableOpacity>
-    <TouchableOpacity><Text>:</Text></TouchableOpacity>
-    </View>
-    </View>
-    <Text style={styles.textComment}>댓글의 내용이다 키킷키키키키키키킷킷 키릿키ㅣㅅ리</Text>
-</View>
-<View style={{flexDirection:"row",justifyContent:"space-between"}}>
-<Icon name="enter" size={25} color="#222" style={{transform: [{rotateY: '180deg'}]}}/>
-<View style={styles.recommentBox}>
-    <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",paddingBottom:"4%"}}>
-    <Text style={{fontSize:18, fontWeight:"bold"}}>전채원</Text>
-    <View style={{flexDirection:'row',justifyContent:"space-between",width:"20%",alignItems:"center"}}>
-    <TouchableOpacity><Text>대댓글</Text></TouchableOpacity>
-    <TouchableOpacity><Text>:</Text></TouchableOpacity>
-    </View>
-    </View>
-    <Text style={styles.textComment}>대댓글의 내용이다 키킷키키키키키키킷킷 키릿키ㅣㅅ리</Text>
-</View>
-</View>
-      </ScrollView>  
+     <View style={styles.container}>
+      <StatusBar backgroundColor="transparent" barStyle="dark-content" />
+      <View style={styles.topBtn}>
+        <TouchableOpacity onPress={() => navigation.navigate("Board")}>
+          <Icon name="arrowleft" size={25} color="#222" />
+        </TouchableOpacity>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+            textAlign: "center",
+            marginLeft: "3%",
+          }}
+        >
+          자유게시판
+        </Text>
       </View>
+
+      <GetCommunity />
+
       <View style={styles.inputCommentBox}>
         {/* 댓글 줄이 늘어남에 따라 상자가 점점 커지도록 */}
         <View style={styles.inputCommentSubBox}>
-
-    <View style={{width:"90%",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
-      
-      <TextInput 
-      multiline={true}
-      textAlignVertical="center"
-      style={[styles.inputComment]}
-      placeholder="댓글을 입력해주세요"
-      autoFocus={true}
-      /></View>
-      <TouchableOpacity 
-      style={styles.commentSubit}
-      ><Text style={{fontSize:15,color:"#A82926",fontWeight:"bold"}}>입력</Text></TouchableOpacity>
-      </View>
+          <View
+            style={{
+              width: "90%",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <TextInput
+              multiline={true}
+              textAlignVertical="center"
+              style={[styles.inputComment]}
+              onChangeText={(cmt) => setCmtcontent(cmt)}
+              value={cmtcontent}
+              placeholder="댓글을 입력해주세요"
+              autoFocus={true}
+            />
+          </View>
+          <TouchableOpacity
+            onPress={() => {
+              postComment(ccoment);
+            }}
+            style={styles.commentSubit}
+          >
+            <Text
+              style={{ fontSize: 15, color: "#A82926", fontWeight: "bold" }}
+            >
+              입력
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
     </KeyboardAvoidingView>

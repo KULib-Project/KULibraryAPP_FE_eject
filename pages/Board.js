@@ -1,45 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View,StyleSheet,ScrollView,Text,TouchableOpacity,StatusBar } from 'react-native';
-
+import axios from "axios";
 
 
 
 
 function Board({ navigation }) {
+  const [data, setData] = useState([]);
+  const [isLoding, setIsLoding] = useState(true);
+
+  useEffect(() => {
+    setIsLoding(true);
+    axios
+      .get("https://library-2022.herokuapp.com/community")
+      .then(function (response) {
+        setData(response.data);
+      })
+      .catch(console.error)
+      .finally(() => setIsLoding(false));
+  }, []);
+
+  const RenderBoard = () => {
+    if (isLoding) {
+      <Text>Loading...</Text>;
+    } else {
+      return data.map((post) => (
+        //아이템 리스트
+        <TouchableOpacity
+          key={post.id}
+          onPress={() => {
+            navigation.navigate("Read Post", { itemData: post });
+          }}
+        >
+          {console.log(post)}
+          <View style={styles.postBox}>
+            <Text>{`${post.title}`}</Text>
+            <Text>{`${post.content}`}</Text>
+            <View style={styles.postSubBox}>
+              <Text>
+                {`${post.created_date}`} | {`${post.name}`}
+              </Text>
+              <View style={styles.subInfo}>
+                <Text>{`조회수 ${post.view_count}  `}</Text>
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
+      ));
+    }
+  };
+
   return (
     <View>
         <StatusBar backgroundColor="transparent" barStyle="dark-content" />
       <ScrollView>
-      <TouchableOpacity
-      onPress={() => navigation.navigate("Read Post")}
-      >
-          <View style={styles.postBox}>
-            <Text>제목</Text>
-            <Text>간단한 요약</Text>
-            <View style={styles.postSubBox}>
-            <Text>작성 시간 | 작성자</Text>
-            <View style={styles.subInfo}>
-            <Text>조횟수</Text>
-            <Text>댓글수</Text>
-            </View>
-            </View>
-          </View>
-        </TouchableOpacity> 
-        <TouchableOpacity
-        onPress={() => navigation.navigate("Read Post")}
-        >
-          <View style={styles.postBox}>
-            <Text>제목</Text>
-            <Text>간단한 요약</Text>
-            <View style={styles.postSubBox}>
-            <Text>작성 시간 | 작성자</Text>
-            <View style={styles.subInfo}>
-            <Text>조횟수</Text>
-            <Text>댓글수</Text>
-            </View>
-            </View>
-          </View>
-        </TouchableOpacity>
+      {RenderBoard()}
       </ScrollView>
       <TouchableOpacity 
           activeOpacity={0.7}
@@ -64,7 +79,8 @@ const styles = StyleSheet.create({
     height:80,
     padding:"2%",
     paddingLeft:"2%",
-    borderBottomWidth:0.2
+    borderBottomWidth:0.2,
+    position:"relative"
   },
   postSubBox:{
     width:"100%",
@@ -97,6 +113,6 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: 'center',
     justifyContent: 'center',
-    bottom: "-300%",
+    bottom: "10%",
   }
 })
