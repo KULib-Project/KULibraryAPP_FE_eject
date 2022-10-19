@@ -36,9 +36,9 @@ export default function LoginScreen({ navigation }) {
       setNaverToken(result);
     });
   }, []);
+
   useEffect(() => {
     if (naverToken !== null) {
-      console.log("useEffect");
       getUserProfile();
     }
     return () => setIsLoding(false); // cleanup function
@@ -94,11 +94,11 @@ export default function LoginScreen({ navigation }) {
   const giveNaverUser = async (accessToken, nUser) => {
     const giveUser = await axios
       .post("https://library-2022.herokuapp.com/auth/google/user", {
-        accessToken: `"${accessToken}"`,
+        accessToken: accessToken.accessToken,
         userInfo: {
-          id: `"${JSON.stringify(nUser.id)}"`,
-          email: `"${JSON.stringify(nUser.email)}"`,
-          name: `"${JSON.stringify(nUser.name)}"`,
+          id: nUser.response.id,
+          email: nUser.response.email,
+          name: nUser.response.name,
         },
       })
       .then((response) => {

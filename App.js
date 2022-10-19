@@ -21,6 +21,7 @@ import Forward from './screens/APITestForward';
 import Middle from './screens/APITestMiddle';
 import End from './screens/APITestEnd';
 import Reading from "./screens/ReadingRoom";
+
 import Main from "./pages/Main"
 import Board from "./pages/Board"
 import Depart from "./pages/Depart"
@@ -32,6 +33,7 @@ import ReadPost from './pages/ReadPost';
 import MainT from './pages/MainT';
 import Search from './pages/Search';
 import SearchRes from './pages/SearchResult';
+
 
 const Stack = createNativeStackNavigator();
 const Tab= createBottomTabNavigator();
@@ -106,6 +108,7 @@ function App() {
         />
         {/*  <Stack.Navigator initialRouteName="Home"> 초기 페이지 설정 */}
         {/* <Stack.Screen name="Home" -> 스크린 닉네임 이걸로 다른 페이지로 넘어가는 코드 짤 때 사용 component={HomeScreen}/> */}
+
         <Stack.Screen options={{ headerShown: false }} name="Main" component={Main}/>
         <Stack.Screen options={{ headerShown: false }} name="MainT" component={MainT}/>
         <Stack.Screen  name="Board" component={Board} />
@@ -126,6 +129,8 @@ function App() {
         <Stack.Screen name="Show" component={Show} />
         <Stack.Screen name="PostDetail" component={PostDetail} />
         <Stack.Screen name="Reading" component={Reading} />
+        <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="Golink" component={Golink} />
       </Stack.Navigator>
     </NavigationContainer>
   );

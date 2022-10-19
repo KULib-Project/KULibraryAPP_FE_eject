@@ -7,18 +7,9 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import DropDownPicker from "react-native-dropdown-picker";
-import {
-  useQuery,
-  QueryClient,
-  QueryClientProvider,
-  useQueryClient,
-} from "@tanstack/react-query";
 
-const queryClient = new QueryClient();
-
-export default function ReadingRoom({ navigation }) {
+export default function ReadingRoom() {
   // dropdown 메뉴 라벨 목록
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -31,11 +22,13 @@ export default function ReadingRoom({ navigation }) {
 
   // API 쿼리 값 저장
   const [reading, setReading] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // 임시로 mock 서버와 param 방식으로 연결
   // 서버에서 선택된 도서관의 열람실 정보를 불러옴
-  const fetchReadingRoom = (value) => {
-    return axios
+  useEffect(() => {
+    setIsLoading(true);
+    axios
       .get(
         `https://f9071a3a-7d0c-4ec1-adf2-c3cec616b3b9.mock.pstmn.io/readingroom?library_id=1`
       )
@@ -44,21 +37,15 @@ export default function ReadingRoom({ navigation }) {
         console.log(res.data);
         setReading(res.data);
         return res.data;
-      });
-  };
+      })
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
+  }, []);
 
   // 열람실 목록 출력
   const PrintReadingRoom = () => {
-    // useQuery를 활용한 Data fetch
-    const query = useQuery(["readingroom"], fetchReadingRoom);
-
-    // Print Error
-    if (query.isError) {
-      console.log(query.error.message);
-    }
-
     // Print Loading Screen
-    if (query.isLoading) {
+    if (isLoading) {
       return (
         <View style={styles.container}>
           <Text>Loading...</Text>
@@ -92,31 +79,31 @@ export default function ReadingRoom({ navigation }) {
 
   return (
     <View>
-      <DropDownPicker
-        style={styles.dropContainer}
-        open={open}
-        items={items}
-        value={value}
-        setOpen={setOpen}
-        setItems={setItems}
-        setValue={setValue}
-        placeholder="도서관 선택 | "
-        containerStyle={{ height: 40 }}
-      />
+      <View style={styles.dropContainer}>
+        <DropDownPicker
+          style={styles.dropDown}
+          open={open}
+          items={items}
+          value={value}
+          setOpen={setOpen}
+          setItems={setItems}
+          setValue={setValue}
+          placeholder="도서관 선택 | "
+          containerStyle={{ height: "7%", width: "95%" }}
+        />
+      </View>
       <ScrollView style={styles.roomContainer}>
-        <QueryClientProvider client={queryClient}>
-          <PrintReadingRoom />
-        </QueryClientProvider>
+        <PrintReadingRoom />
       </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  dropContainer: {
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    padding: 10,
+  dropContainer: { alignItems: "center", marginTop: 5 },
+  dropDown: {
+    alignItems: "center",
+    justifyContent: "center",
   },
   roomContainer: {
     height: "80%",
@@ -149,10 +136,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   label: {
-    width: 45,
+    width: "15%",
     height: 23,
     backgroundColor: "#36BC9B",
     margin: 5,
+    marginRight: 5,
     flexDirection: "row",
     justifyContent: "center",
   },
