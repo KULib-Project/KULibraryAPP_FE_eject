@@ -38,14 +38,6 @@ function Home() {
       }}
     >
       <Tab.Screen
-        name="Home1"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: () => <Icon name="home" size={30} />,
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
         name="Main"
         component={Main}
         options={{
@@ -86,7 +78,7 @@ function App() {
   return (
     <NavigationContainer>
       {/* 네비게이션 설정 */}
-      <Stack.Navigator initialRouteName="Main">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Home"
           component={Home}
