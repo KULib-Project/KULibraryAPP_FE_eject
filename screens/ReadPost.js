@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { KeyboardAvoidingView,StyleSheet,TouchableOpacity,Text, View,StatusBar } from 'react-native';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/AntDesign'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import React, { useEffect, useState } from "react";
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  View,
+  StatusBar,
+} from "react-native";
+import { ScrollView, TextInput } from "react-native-gesture-handler";
+import Icon from "react-native-vector-icons/AntDesign";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
 
 // 대댓글 할 때 포인트 넣어주자
-function ReadPost({ navigation,route }) {
-      // API 쿼리 값 저장
+function ReadPost({ navigation, route }) {
+  // API 쿼리 값 저장
   const [comments, setComments] = useState();
   /** 댓글 입력 값 저장 */
   const [cmtcontent, setCmtcontent] = useState("");
@@ -196,134 +203,138 @@ function ReadPost({ navigation,route }) {
   };
 
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? "padding" : null}
-        style={{ flex: 1 }}
-    > 
-     <View style={styles.container}>
-      <StatusBar backgroundColor="transparent" barStyle="dark-content" />
-      <View style={styles.topBtn}>
-        <TouchableOpacity onPress={() => navigation.navigate("Board")}>
-          <Icon name="arrowleft" size={25} color="#222" />
-        </TouchableOpacity>
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: "bold",
-            textAlign: "center",
-            marginLeft: "3%",
-          }}
-        >
-          자유게시판
-        </Text>
-      </View>
-
-      <GetCommunity />
-
-      <View style={styles.inputCommentBox}>
-        {/* 댓글 줄이 늘어남에 따라 상자가 점점 커지도록 */}
-        <View style={styles.inputCommentSubBox}>
-          <View
-            style={{
-              width: "90%",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <TextInput
-              multiline={true}
-              textAlignVertical="center"
-              style={[styles.inputComment]}
-              onChangeText={(cmt) => setCmtcontent(cmt)}
-              value={cmtcontent}
-              placeholder="댓글을 입력해주세요"
-              autoFocus={true}
-            />
-          </View>
-          <TouchableOpacity
-            onPress={() => {
-              postComment(ccoment);
-            }}
-            style={styles.commentSubit}
-          >
-            <Text
-              style={{ fontSize: 15, color: "#A82926", fontWeight: "bold" }}
-            >
-              입력
-            </Text>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={{ flex: 1 }}
+    >
+      <View style={styles.container}>
+        <StatusBar backgroundColor="transparent" barStyle="dark-content" />
+        <View style={styles.topBtn}>
+          <TouchableOpacity onPress={() => navigation.navigate("Board")}>
+            <Icon name="arrowleft" size={25} color="#222" />
           </TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              textAlign: "center",
+              marginLeft: "3%",
+            }}
+          >
+            자유게시판
+          </Text>
+        </View>
+
+        <GetCommunity />
+
+        <View style={styles.inputCommentBox}>
+          {/* 댓글 줄이 늘어남에 따라 상자가 점점 커지도록 */}
+          <View style={styles.inputCommentSubBox}>
+            <View
+              style={{
+                width: "90%",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <TextInput
+                multiline={true}
+                textAlignVertical="center"
+                style={[styles.inputComment]}
+                onChangeText={(cmt) => setCmtcontent(cmt)}
+                value={cmtcontent}
+                placeholder="댓글을 입력해주세요"
+                autoFocus={true}
+              />
+            </View>
+            <TouchableOpacity
+              onPress={() => {
+                postComment(ccoment);
+              }}
+              style={styles.commentSubit}
+            >
+              <Text
+                style={{ fontSize: 15, color: "#A82926", fontWeight: "bold" }}
+              >
+                입력
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
     </KeyboardAvoidingView>
   );
 }
 
 export default ReadPost;
 
-const styles=StyleSheet.create({
-container:{
-    flex:1,
-    alignItems:"center",
-    justifyContent:"center",
-},
-topBtn:{
-
-    height:30,
-    flexDirection:"row",
-    width:"90%",
-    justifyContent:"flex-start",
-    alignItems:"center"
-},
-textTitle:{
-    paddingTop:"7%",
-    paddingBottom:"2%",
- fontSize:30,
- fontWeight:"bold"
-},
-textContent:{
-fontSize:20
-},
-textComment:{
-    fontSize:20
-},
-commentBox:{
-padding:"10%",
-paddingLeft:0
-},
-recommentBox:{
-    width:"88%",
-    padding:"4%",
-    backgroundColor:"#ccc",
-    borderRadius:10,
-    },
-inputCommentBox:{
-width:"99%",
-padding:"4%",
-paddingTop:"4%",
-paddingBottom:0,
-borderTopWidth:0.2,
-borderColor:"#ccc",
-},
-inputCommentSubBox:{
-flexDirection:"row",
-backgroundColor:"#ccc",
-borderRadius:10,
-justifyContent:"space-between",
-alignItems:"center"
-},
-inputComment:{
-    width:"100%",
-    height:50,
-    textAlign:"left",
-    fontSize:20,
-    padding:"2%",
-    paddingTop:"4%"
-
-},
-commentSubit:{
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  topBtn: {
+    height: 30,
+    flexDirection: "row",
+    width: "90%",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  textTitle: {
+    paddingTop: "7%",
+    paddingBottom: "2%",
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+  textContent: {
+    fontSize: 20,
+    marginBottom: 20,
+  },
+  textComment: {
+    fontSize: 20,
+  },
+  commentBox: {
+    padding: "5%",
+    paddingLeft: 0,
+  },
+  commentBox_selected: {
+    padding: "5%",
+    paddingLeft: 0,
+    backgroundColor: "#ffc0cb",
+  },
+  recommentBox: {
+    width: "88%",
+    padding: "4%",
+    backgroundColor: "#ccc",
+    borderRadius: 10,
+  },
+  inputCommentBox: {
+    width: "99%",
+    padding: "4%",
+    paddingTop: "4%",
+    paddingBottom: 0,
+    borderTopWidth: 0.2,
+    borderColor: "#ccc",
+  },
+  inputCommentSubBox: {
+    flexDirection: "row",
+    backgroundColor: "#ccc",
+    borderRadius: 10,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  inputComment: {
+    width: "100%",
+    height: 50,
+    textAlign: "left",
+    fontSize: 20,
+    padding: "2%",
+    paddingTop: "4%",
+  },
+  commentSubit: {
     // padding:"3%",
-    paddingRight:"3%",
-}
-})
+    paddingRight: "3%",
+  },
+});

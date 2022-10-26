@@ -19,7 +19,6 @@ function Main({ navigation }) {
   const [isChecked, checked] = useState(true);
   // const [text, onChangeText] = React.useState("");
   const date = new Date();
-  console.log(date.getMonth);
   const month =
     date.getMonth() + 1 < 10
       ? "0" + (date.getMonth() + 1)
