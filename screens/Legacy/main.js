@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 import {
-  StatusBar,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
   TouchableOpacity,
   Text,
   View,
@@ -11,13 +7,17 @@ import {
   TextInput,
 } from "react-native";
 import { StyleSheet } from "react-native";
+/** https://www.npmjs.com/package/react-native-modest-checkbox#usage
+ *
+ * 체크 박스 참고
+ */
 
 import Checkbox from "react-native-modest-checkbox";
 import Icon from "react-native-vector-icons/AntDesign";
 
 function Main({ navigation }) {
   const [isChecked, checked] = useState(true);
-  // const [text, onChangeText] = React.useState("");
+  const [text, onChangeText] = React.useState("");
   const date = new Date();
   console.log(date.getMonth);
   const month =
@@ -34,23 +34,15 @@ function Main({ navigation }) {
     [6, "토"],
   ]);
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+    <ScrollView>
       <View style={styles.container}>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" />
-
         <View style={styles.searchBox}>
-          {/* <TextInput
-       style={styles.input}
-        onChangeText={onChangeText}
-        value={text}
-        placeholder="검색 키워드 입력"
-      /> */}
-          <TouchableOpacity
+          <TextInput
             style={styles.input}
-            onPress={() => navigation.navigate("Search")}
-          >
-            <Text>검색 키워드 입력</Text>
-          </TouchableOpacity>
+            onChangeText={onChangeText}
+            value={text}
+            placeholder="검색 키워드 입력"
+          />
           {/* 버튼 요소 추가해야함 */}
           <Icon
             style={styles.searchIcon}
@@ -59,16 +51,17 @@ function Main({ navigation }) {
             color="#000"
           />
         </View>
-
         <View style={styles.libOpenContainer}>
           <Text
             style={[
               styles.libOpenText,
               { fontSize: 20, textAlign: "left", marginLeft: 5 },
             ]}
-          >{`${date.getFullYear()}/${month}/${date.getDate()}(${dayMap.get(
-            date.getDay()
-          )}) 개관시간`}</Text>
+          >
+            {`${date.getFullYear()}/${month}/${date.getDate()}(${dayMap.get(
+              date.getDay()
+            )}) 개관시간`}
+          </Text>
           <Text />
           <View style={[styles.libOpen, { borderBottomWidth: 0.2 }]}>
             <View style={styles.libOpenBox01}>
@@ -114,7 +107,7 @@ function Main({ navigation }) {
           <TouchableOpacity style={styles.btnMain}>
             <Text
               style={styles.btnText}
-              onPress={() => navigation.navigate("Board")}
+              onPress={() => navigation.navigate("Show")}
             >
               자유게시판
             </Text>
@@ -194,7 +187,7 @@ function Main({ navigation }) {
           </ScrollView>
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </ScrollView>
   );
 }
 
