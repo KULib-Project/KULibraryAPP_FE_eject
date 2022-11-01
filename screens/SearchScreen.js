@@ -28,7 +28,7 @@ function Search({ navigation }) {
         </TouchableOpacity>
         <View style={styles.searchBox}>
           <TextInput
-            multiline={true}
+            multiline={false}
             style={styles.inputKeyword}
             autoFocus={true}
             value={keyword}
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     marginRight: "4%",
   },
   inputKeyword: {
+    width: "95%",
     backgroundColor: "#fff",
   },
   searchBox: {
