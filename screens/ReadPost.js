@@ -298,6 +298,11 @@ const styles = StyleSheet.create({
     padding: "10%",
     paddingLeft: 0,
   },
+  commentBox_selected: {
+    padding: "5%",
+    paddingLeft: 0,
+    backgroundColor: "#ffc0cb",
+  },
   recommentBox: {
     width: "88%",
     padding: "4%",
