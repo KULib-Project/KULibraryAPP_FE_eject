@@ -14,7 +14,7 @@ const iosKeys = {
   kConsumerKey: "7XmyJIpyoR1cwlKpQVPB",
   kConsumerSecret: "0fjIeLW6Kb",
   kServiceAppName: "KULibrary",
-  kServiceAppUrlScheme: "testapp" // only for iOS
+  kServiceAppUrlScheme: "testapp", // only for iOS
 };
 
 const androidKeys = {

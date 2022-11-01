@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { View,StyleSheet,ScrollView,Text,TouchableOpacity,StatusBar } from 'react-native';
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
 import axios from "axios";
-
-
-
 
 function Board({ navigation }) {
   const [data, setData] = useState([]);
@@ -52,18 +56,17 @@ function Board({ navigation }) {
 
   return (
     <View>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" />
-      <ScrollView>
-      {RenderBoard()}
-      </ScrollView>
-      <TouchableOpacity 
-          activeOpacity={0.7}
-          onPress={() => navigation.navigate("Post")}
-          style={styles.touchableOpacityStyle}>
-            <View style={styles.postBtn}>
-              <Text>글쓰기</Text>
-            </View>
-          </TouchableOpacity>
+      <StatusBar backgroundColor="transparent" barStyle="dark-content" />
+      <ScrollView>{RenderBoard()}</ScrollView>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={() => navigation.navigate("Post")}
+        style={styles.touchableOpacityStyle}
+      >
+        <View style={styles.postBtn}>
+          <Text>글쓰기</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -71,48 +74,48 @@ function Board({ navigation }) {
 export default Board;
 
 const styles = StyleSheet.create({
-  postBox:{
-    flexDirection:"column",
-    alignItems:"baseline",
-    justifyContent:"space-between",
-    backgroundColor:"#fff",
-    height:80,
-    padding:"2%",
-    paddingLeft:"2%",
-    borderBottomWidth:0.2,
-    position:"relative"
+  postBox: {
+    flexDirection: "column",
+    alignItems: "baseline",
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    height: 80,
+    padding: "2%",
+    paddingLeft: "2%",
+    borderBottomWidth: 0.2,
+    position: "relative",
   },
-  postSubBox:{
-    width:"100%",
-    flexDirection:"row",
-    justifyContent:"space-between"
+  postSubBox: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-  subInfo:{
-    width:"24%",
-    flexDirection:"row",
-    justifyContent:"space-between"
+  subInfo: {
+    width: "24%",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-  postBtn:{
-    backgroundColor:"#fff",
-    borderRadius:40,
-    width:"20%",
-    padding:5,
-    alignItems:"center",
-    justifyContent:"center",
-    borderWidth:0.2,
+  postBtn: {
+    backgroundColor: "#fff",
+    borderRadius: 40,
+    width: "20%",
+    padding: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 0.2,
     shadowColor: "#000000",
     shadowOpacity: 0.2,
     shadowRadius: 2,
     shadowOffset: {
       height: 1,
-      width: 1
-    }
+      width: 1,
+    },
   },
-  touchableOpacityStyle:{
-    position:"absolute",
+  touchableOpacityStyle: {
+    position: "absolute",
     width: "100%",
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     bottom: "10%",
-  }
-})
+  },
+});
