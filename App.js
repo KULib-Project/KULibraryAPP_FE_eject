@@ -13,7 +13,7 @@ import LoginScreen from "./screens/LoginScreen_N";
 import Auth from "./functions/auth";
 import Show from "./screens/PostShowScreen";
 import Reading from "./screens/ReadingRoom";
-import Main from "./screens/Main";
+import Main from "./screens/main";
 import Board from "./screens/PostShowScreen";
 import Depart from "./screens/Depart";
 import Studyclub from "./screens/StudyclubScreen";
