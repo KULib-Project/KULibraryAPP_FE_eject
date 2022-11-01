@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/AntDesign";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
 
 // 대댓글 할 때 포인트 넣어주자
