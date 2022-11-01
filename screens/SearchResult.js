@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {
   Image,
@@ -10,13 +11,36 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/AntDesign";
+import DefaultQueryData from "../LibAPIQuery.js";
 
 function SearchRes({ navigation, route }) {
   const [keyword, setKeyword] = useState("");
+  const [result, setResult] = useState([]);
+  const [isLoding, setIsLoding] = useState(true);
 
   useEffect(() => {
+    setIsLoding(true);
     setKeyword(route.params.keyword);
-    console.log(route.params);
+    const API = new DefaultQueryData("list", "total", keyword);
+    const query = API.getURL();
+    const option = {
+      method: "GET",
+      url: query,
+      responseType: "json",
+      charset: "utf-8",
+      responseEncoding: "utf-8",
+    };
+
+    // TODO: Network Error 해결
+    // Rendering 문제? method 문제? 아니면 responseType 문제?
+    axios
+      .request(option)
+      .then((res) => {
+        setResult(res);
+        console.log(res);
+      })
+      .catch(console.error)
+      .finally(() => setIsLoding(false));
   }, []);
 
   return (
@@ -49,12 +73,18 @@ function SearchRes({ navigation, route }) {
             value={keyword}
             autoFocus={false}
           />
-          <Icon
-            style={styles.searchIcon}
-            name="search1"
-            size={25}
-            color="#000"
-          />
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("SearchRes", { keyword: keyword })
+            }
+          >
+            <Icon
+              style={styles.searchIcon}
+              name="search1"
+              size={25}
+              color="#000"
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.containPerPart}>
           <Text>소장 도서</Text>
@@ -182,6 +212,7 @@ const styles = StyleSheet.create({
     marginTop: "3%",
   },
   inputKeyword: {
+    width: "95%",
     backgroundColor: "#fff",
   },
   searchBox: {
@@ -208,7 +239,7 @@ const styles = StyleSheet.create({
   },
   oneBook: {
     width: "96%",
-    height: "20%",
+    height: "23%",
     margin: "3%",
     paddingBottom: "1%",
     borderBottomWidth: 1,
