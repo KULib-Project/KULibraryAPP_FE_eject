@@ -12,6 +12,7 @@ import {
 import { TextInput } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/AntDesign";
 import DefaultQueryData from "../LibAPIQuery.js";
+import XMLParser from "react-xml-parser";
 
 function SearchRes({ navigation, route }) {
   const [keyword, setKeyword] = useState("");
@@ -21,14 +22,12 @@ function SearchRes({ navigation, route }) {
   useEffect(() => {
     setIsLoding(true);
     setKeyword(route.params.keyword);
+    console.log(route.params.keyword);
     const API = new DefaultQueryData("list", "total", keyword);
     const query = API.getURL();
     const option = {
-      method: "GET",
       url: query,
-      responseType: "json",
-      charset: "utf-8",
-      responseEncoding: "utf-8",
+      method: "GET",
     };
 
     // TODO: Network Error 해결
@@ -36,10 +35,14 @@ function SearchRes({ navigation, route }) {
     axios
       .request(option)
       .then((res) => {
-        setResult(res);
-        console.log(res);
+        const data = res;
+        const resultData = new XMLParser().parseFromString(data).children;
+        console.log(resultData);
+        setResult(resultData);
       })
-      .catch(console.error)
+      .catch((error) => {
+        console.log("error: " + error);
+      })
       .finally(() => setIsLoding(false));
   }, []);
 
