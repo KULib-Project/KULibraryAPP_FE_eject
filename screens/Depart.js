@@ -1,15 +1,19 @@
 import React from 'react';
-import { View,StyleSheet,ScrollView,Text,TouchableOpacity,StatusBar } from 'react-native';
+import { FlatList,View,StyleSheet,ScrollView,Text,TouchableOpacity,StatusBar } from 'react-native';
 
 
 
-
+const data=['date']
 
 function Depart({ navigation }) {
   return (
     <View>
         <StatusBar backgroundColor="transparent" barStyle="dark-content" />
-      <ScrollView>
+        <FlatList
+      inverted={-1}
+      data={data}
+      style={{display:'flex',flexDirection:'column'}}
+      renderItem={({item}) => ( 
       <TouchableOpacity
       onPress={() => navigation.navigate("Read Post")}
       >
@@ -24,23 +28,7 @@ function Depart({ navigation }) {
             </View>
             </View>
           </View>
-        </TouchableOpacity> 
-        <TouchableOpacity
-        onPress={() => navigation.navigate("Read Post")}
-        >
-          <View style={styles.postBox}>
-            <Text>제목</Text>
-            <Text>간단한 요약</Text>
-            <View style={styles.postSubBox}>
-            <Text>작성 시간 | 작성자</Text>
-            <View style={styles.subInfo}>
-            <Text>조횟수</Text>
-            <Text>댓글수</Text>
-            </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-      </ScrollView>
+        </TouchableOpacity> )}/>
       <TouchableOpacity 
           activeOpacity={0.7}
           onPress={() => navigation.navigate("Post")}
@@ -51,11 +39,9 @@ function Depart({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity 
           activeOpacity={0.7}
-          onPress={() => navigation.navigate("Post")}
+          onPress={() => alert('필터 버튼')}
           style={styles.filterStyle}>
-            <View style={styles.postBtn}>
               <Text>필터</Text>
-            </View>
           </TouchableOpacity>
     </View>
   );
@@ -108,10 +94,17 @@ const styles = StyleSheet.create({
     bottom: "-300%",
   },
   filterStyle:{
-    position:"absolute",
-    width: "100%",
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-    bottom: "-300%",
-  }
+      borderWidth: 1,
+      borderColor: '#02A2AB',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 70,
+      position: 'absolute',
+      top: 590,
+      right: 20,
+      height: 70,
+      backgroundColor: '#02A2AB',
+      borderRadius: 100,
+  },
+  
 })

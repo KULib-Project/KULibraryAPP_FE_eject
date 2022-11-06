@@ -24,6 +24,7 @@ import ReadPost from "./screens/ReadPost";
 import MainT from "./screens/MainT";
 import Search from "./screens/SearchScreen";
 import SearchRes from "./screens/SearchResult";
+import BookDetail from "./screens/BookDetail";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -108,6 +109,9 @@ function App() {
           name="SearchRes"
           component={SearchRes}
         />
+        <Stack.Screen 
+        name="Book Detail" 
+        component={BookDetail} />
         <Stack.Screen
           options={{ headerShown: false }}
           name="Post"
