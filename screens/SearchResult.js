@@ -68,10 +68,10 @@ function SearchRes({ navigation, route }) {
         <Text>{keyword}</Text>
      <Icon style={styles.searchIcon} name="search1" size={25} color="#000"/>
      </TouchableOpacity>
-     <View style={styles.containPerPart}>
+     {/* <View style={styles.containPerPart}></View> */}
      <Text>소장 도서</Text>
      <View style={styles.perPart}>
-     <TouchableOpacity style={styles.oneBook} onPress={() => navigation.navigate("Book Detail")} >
+     {/* <TouchableOpacity style={styles.oneBook} onPress={() => navigation.navigate("Book Detail")} ></TouchableOpacity> */}
      <Image
             style={styles.imageStyle}
             source={{ uri: "https://i.guim.co.uk/img/media/423d3ddf306e98864c1d887c1dcf290421cd21a7/0_169_4912_6140/master/4912.jpg?width=700&quality=85&auto=format&fit=max&s=864393ed1c322fc5ddcb2766c3c945e6" }}
