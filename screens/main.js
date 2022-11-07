@@ -19,6 +19,7 @@ function Main({ navigation }) {
   const [isChecked, checked] = useState(true);
   // const [text, onChangeText] = React.useState("");
   const date = new Date();
+  console.log(date.getMonth);
   const month =
     date.getMonth() + 1 < 10
       ? "0" + (date.getMonth() + 1)
@@ -48,9 +49,8 @@ function Main({ navigation }) {
             style={styles.input}
             onPress={() => navigation.navigate("Search")}
           >
-            <Text>검색 키워드 입력</Text>
+            <Text>도서 검색 이용하기</Text>
           </TouchableOpacity>
-          {/* 버튼 요소 추가해야함 */}
           <Icon
             style={styles.searchIcon}
             name="search1"

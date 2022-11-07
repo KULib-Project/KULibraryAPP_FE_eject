@@ -5,6 +5,7 @@ import { FlatList,View,StyleSheet,ScrollView,Text,TouchableOpacity,StatusBar } f
 
 const data=['date']
 
+
 function Depart({ navigation }) {
   return (
     <View>
@@ -21,11 +22,11 @@ function Depart({ navigation }) {
             <Text>제목</Text>
             <Text>간단한 요약</Text>
             <View style={styles.postSubBox}>
-            <Text>작성 시간 | 작성자</Text>
-            <View style={styles.subInfo}>
-            <Text>조횟수</Text>
-            <Text>댓글수</Text>
-            </View>
+              <Text>작성 시간 | 작성자</Text>
+              <View style={styles.subInfo}>
+                <Text>조횟수</Text>
+                <Text>댓글수</Text>
+              </View>
             </View>
           </View>
         </TouchableOpacity> )}/>
@@ -50,47 +51,47 @@ function Depart({ navigation }) {
 export default Depart;
 
 const styles = StyleSheet.create({
-  postBox:{
-    flexDirection:"column",
-    alignItems:"baseline",
-    justifyContent:"space-between",
-    backgroundColor:"#fff",
-    height:80,
-    padding:"2%",
-    paddingLeft:"2%",
-    borderBottomWidth:0.2
+  postBox: {
+    flexDirection: "column",
+    alignItems: "baseline",
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    height: 80,
+    padding: "2%",
+    paddingLeft: "2%",
+    borderBottomWidth: 0.2,
   },
-  postSubBox:{
-    width:"100%",
-    flexDirection:"row",
-    justifyContent:"space-between"
+  postSubBox: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-  subInfo:{
-    width:"24%",
-    flexDirection:"row",
-    justifyContent:"space-between"
+  subInfo: {
+    width: "24%",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-  postBtn:{
-    backgroundColor:"#fff",
-    borderRadius:40,
-    width:"20%",
-    padding:5,
-    alignItems:"center",
-    justifyContent:"center",
-    borderWidth:0.2,
+  postBtn: {
+    backgroundColor: "#fff",
+    borderRadius: 40,
+    width: "20%",
+    padding: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 0.2,
     shadowColor: "#000000",
     shadowOpacity: 0.2,
     shadowRadius: 2,
     shadowOffset: {
       height: 1,
-      width: 1
-    }
+      width: 1,
+    },
   },
-  touchableOpacityStyle:{
-    position:"absolute",
+  touchableOpacityStyle: {
+    position: "absolute",
     width: "100%",
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     bottom: "-300%",
   },
   filterStyle:{
