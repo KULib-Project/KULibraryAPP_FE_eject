@@ -5181,6 +5181,7 @@
   dependencies:
     "@babel/plugin-transform-object-assign" "^7.10.4"
     "@types/invariant" "^2.2.35"
+
     "invariant" "^2.2.4"
     "lodash.isequal" "^4.5.0"
     "mockdate" "^3.0.2"
@@ -5332,6 +5333,7 @@
   "integrity" "sha512-eOf6vka5IO151Jfsw2NO9WpGX58W6wWmefK3I1zEGr0lOD0u8rwPaNqQL1aRxUaxLeKO3ArNh3VYg1KbaD+FFw=="
   "resolved" "https://registry.npmjs.org/regenerator-transform/-/regenerator-transform-0.14.5.tgz"
   "version" "0.14.5"
+
   dependencies:
     "@babel/runtime" "^7.8.4"
 
