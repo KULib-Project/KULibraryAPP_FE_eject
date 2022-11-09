@@ -26,6 +26,7 @@ import Search from "./screens/SearchScreen";
 import SearchRes from "./screens/SearchResult";
 import BookDetail from "./screens/BookDetail";
 import PostDepart from "./screens/PostDepart";
+import MakeStudy from "./screens/MakeStudyclub";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -127,6 +128,7 @@ function App() {
         <Stack.Screen name="Show" component={Show} />
         <Stack.Screen name="Reading" component={Reading} />
         <Stack.Screen name="PostDepart" component={PostDepart} />
+        <Stack.Screen name="MakeStudy" component={MakeStudy} />
       </Stack.Navigator>
     </NavigationContainer>
   );
