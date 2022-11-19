@@ -3,7 +3,6 @@ import {
   FlatList,
   View,
   StyleSheet,
-  ScrollView,
   Text,
   TouchableOpacity,
   StatusBar,
@@ -19,6 +18,7 @@ function Depart({ navigation }) {
         inverted={-1}
         data={data}
         style={{ display: "flex", flexDirection: "column" }}
+        keyExtractor={(item) => item}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => navigation.navigate("Read Post")}>
             <View style={styles.postBox}>
@@ -27,7 +27,7 @@ function Depart({ navigation }) {
               <View style={styles.postSubBox}>
                 <Text>작성 시간 | 작성자</Text>
                 <View style={styles.subInfo}>
-                  <Text>조횟수</Text>
+                  <Text>조회수</Text>
                   <Text>댓글수</Text>
                 </View>
               </View>

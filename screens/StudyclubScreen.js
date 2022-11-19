@@ -51,6 +51,7 @@ function Studyclub({ navigation }) {
         inverted={-1}
         data={data}
         style={{ display: "flex", flexDirection: "column" }}
+        keyExtractor={(item) => item}
         renderItem={({ item }) => (
           <TouchableOpacity
             key={item}
