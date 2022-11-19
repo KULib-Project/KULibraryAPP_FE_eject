@@ -16,7 +16,7 @@ function Depart({ navigation }) {
       style={{display:'flex',flexDirection:'column'}}
       renderItem={({item}) => ( 
       <TouchableOpacity
-      onPress={() => navigation.navigate("Read Post")}
+      onPress={() => navigation.navigate("Depart Detail")}
       >
           <View style={styles.postBox}>
             <Text>제목</Text>

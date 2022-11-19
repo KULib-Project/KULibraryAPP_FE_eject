@@ -26,6 +26,7 @@ import MainT from "./screens/MainT";
 import Search from "./screens/SearchScreen";
 import SearchRes from "./screens/SearchResult";
 import BookDetail from "./screens/BookDetail";
+import DepartDetail from "./screens/DepartDetail";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -127,6 +128,11 @@ function App() {
           options={{ headerShown: false }}
           name="Study Detail"
           component={StudyclubDetail}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Depart Detail"
+          component={DepartDetail}
         />
         <Stack.Screen name="Detail" component={DetailScreen} />
         <Stack.Screen name="Login " component={LoginScreen} />
