@@ -19,8 +19,8 @@ export default class DefaultQueryData {
     sortkey = undefined,
     sortorder = undefined
   ) {
-    this.defaultURL = `http://libs.korea.ac.kr/openapi/search?verb=${verb}&target=${target}&query=${query}`;
-    this.apiKey = "&apikey=" + "KFatUriu5FXoGuKN475tER6E9ZS0Hqk2LMuM9Ja/MPA=";
+    this.defaultURL = `https://libs.korea.ac.kr/openapi/search?verb=${verb}&target=${target}&query=${query}`;
+    this.apiKey = `&apikey=${API_KEY}`;
     this.page
       ? (this.defaultURL += `&page=${page}`)
       : (this.defaultURL += `&page=10`);
@@ -35,6 +35,7 @@ export default class DefaultQueryData {
       : (this.defaultURL += `&sortorder=desc`);
 
     this.url = this.defaultURL + this.apiKey;
+    console.log("URL1 :", this.url);
   }
 
   getURL() {

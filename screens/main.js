@@ -225,7 +225,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
-    marginTop: "12%",
   },
   searchIcon: {
     color: "#A82926",

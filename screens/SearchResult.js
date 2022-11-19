@@ -36,12 +36,25 @@ function SearchRes({ navigation, route }) {
     setKeyword(route.params.keyword);
     console.log(route.params.keyword);
     const API = new DefaultQueryData("list", "total", keyword);
-    // const query = API.getURL();
-    const query =
-      "https://d7295ed3-b743-4309-862a-40f00b5adf88.mock.pstmn.io/test.xml";
+    const query = API.getURL();
 
     console.log(query);
     getSearchAPI(query);
+
+    // RNFetchBlob.config({
+    //   trusty: false,
+    // })
+    //   .fetch(query)
+    //   .then((res) => res.text())
+    //   .then((res) => {
+    //     parseString(res, function (err, result) {
+    //       console.log(result);
+    //       setResult(result);
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     console.log("fetch", err);
+    //   });
 
     setIsLoding(false);
   }, []);

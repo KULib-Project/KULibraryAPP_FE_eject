@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -10,13 +10,13 @@ import {
   View,
   TextInput,
   StatusBar,
-  Button,
 } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
+import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DropDownPicker from "react-native-dropdown-picker";
 import DateTimePicker from "react-native-modal-datetime-picker";
-// import { DatePickerModal } from "react-native-paper-dates";
+// import DatePicker from "react-datepicker";
 
 function MakeStudy({ navigation }) {
   // dropdown 메뉴 라벨 목록
@@ -40,10 +40,6 @@ function MakeStudy({ navigation }) {
 
   // 스터디 이름
   const [title, setTitle] = useState("");
-
-  // 스터디 내용
-  const [text, setText] = useState("");
-
   // 스터디 기간
   const [startDate, setStartDate] = React.useState();
   const [mode, setMode] = React.useState("date");
@@ -100,12 +96,24 @@ function MakeStudy({ navigation }) {
                 autoFocus={true}
                 placeholder="스터디 이름"
               />
-              <View style={[styles.inputBody]}>
+              <View>
+                <Text style={styles.inputBody}>스터디 기간</Text>
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                />
+                <DatePicker
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                />
+              </View>
+              <View style={[styles.postSubBox]}>
                 <TextInput
                   multiline={true}
+                  style={[styles.inputBody]}
                   autoFocus={true}
                   onChangeText={(text) => setText(text)}
-                  placeholder="스터디 내용"
+                  placeholder="추천 이유"
                 />
                 <View>
                   <Text style={styles.rangeStudy}>스터디 기간</Text>
