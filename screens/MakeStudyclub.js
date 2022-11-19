@@ -15,7 +15,8 @@ import {
 import Icon from "react-native-vector-icons/AntDesign";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DropDownPicker from "react-native-dropdown-picker";
-import { DatePickerModal } from "react-native-paper-dates";
+import DateTimePicker from "react-native-modal-datetime-picker";
+// import { DatePickerModal } from "react-native-paper-dates";
 
 function MakeStudy({ navigation }) {
   // dropdown 메뉴 라벨 목록
@@ -44,28 +45,9 @@ function MakeStudy({ navigation }) {
   const [text, setText] = useState("");
 
   // 스터디 기간
-  const [range, setRange] = React.useState({
-    startDate: undefined,
-    endDate: undefined,
-  });
-
+  const [startDate, setStartDate] = React.useState();
+  const [mode, setMode] = React.useState("date");
   const [openDate, setOpenDate] = React.useState(false);
-
-  const onDismiss = React.useCallback(() => {
-    setOpenDate(false);
-  }, [setOpenDate]);
-
-  const onConfirm = React.useCallback(
-    ({ startDate, endDate }) => {
-      setOpenDate(false);
-      setRange({ startDate, endDate });
-    },
-    [setOpenDate, setRange]
-  );
-
-  useEffect(() => {
-    console.log(range);
-  }, [range]);
 
   AsyncStorage.getItem("User", (error, result) => {
     const UserInfo = JSON.parse(result);
@@ -74,6 +56,11 @@ function MakeStudy({ navigation }) {
   });
 
   const PostUser = () => {};
+
+  const showMode = (currentMode) => {
+    setOpenDate(true);
+    setMode(currentMode);
+  };
 
   return (
     <KeyboardAvoidingView
@@ -121,14 +108,15 @@ function MakeStudy({ navigation }) {
                   placeholder="스터디 내용"
                 />
                 <View>
-                  <Text style={styles.inputBody}>스터디 기간</Text>
+                  <Text style={styles.rangeStudy}>스터디 기간</Text>
                   <Button
-                    onPress={() => setOpenDate(true)}
+                    onPress={() => showMode("date")}
+                    style={styles.rangeBtn}
                     uppercase={false}
                     mode="outlined"
                     title="Pick range"
                   ></Button>
-                  <DatePickerModal
+                  {/* <DatePickerModal
                     locale="en"
                     mode="range"
                     visible={openDate}
@@ -152,7 +140,7 @@ function MakeStudy({ navigation }) {
                     // closeIcon="close" // optional, default is "close"
                     // editIcon="pencil" // optional, default is "pencil"
                     // calendarIcon="calendar" // optional, default is "calendar"
-                  />
+                  /> */}
                 </View>
               </View>
             </View>
@@ -206,12 +194,20 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     fontSize: 20,
     fontWeight: "900",
-    paddingTop: "4%",
+    marginTop: "-10%",
+    paddingTop: "15%",
     paddingBottom: "4%",
   },
   inputBody: {
     fontSize: 16,
     height: "90%",
     textAlignVertical: "top",
+    marginTop: "-3%",
+  },
+  rangeStudy: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: "80%",
+    marginBottom: "10%",
   },
 });
