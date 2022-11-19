@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {
   Image,
@@ -18,12 +17,13 @@ function SearchRes({ navigation, route }) {
   const [keyword, setKeyword] = useState("");
   const [result, setResult] = useState([]);
   const [isLoding, setIsLoding] = useState(true);
+
   const getSearchAPI = async (query) => {
     fetch(query)
       .then((res) => res.text())
       .then((res) => {
         parseString(res, function (err, result) {
-          console.log(res);
+          console.log(result);
         });
       })
       .catch((err) => {
@@ -37,26 +37,26 @@ function SearchRes({ navigation, route }) {
     console.log(route.params.keyword);
     const API = new DefaultQueryData("list", "total", keyword);
     const query = API.getURL();
-    const option = {
-      url: query,
-      method: "GET",
-    };
 
-    // TODO: Network Error 해결
-    // Rendering 문제? method 문제? 아니면 responseType 문제?
-    // axios
-    //   .request(option)
+    console.log(query);
+    getSearchAPI(query);
+
+    // RNFetchBlob.config({
+    //   trusty: false,
+    // })
+    //   .fetch(query)
+    //   .then((res) => res.text())
     //   .then((res) => {
-    //     const data = res;
-    //     const resultData = new XMLParser().parseFromString(data).children;
-    //     console.log(resultData);
-    //     setResult(resultData);
+    //     parseString(res, function (err, result) {
+    //       console.log(result);
+    //       setResult(result);
+    //     });
     //   })
-    //   .catch((error) => {
-    //     console.log("error: " + error);
-    //   })
-    //   .finally(() => setIsLoding(false));
-    setResult(getSearchAPI(query));
+    //   .catch((err) => {
+    //     console.log("fetch", err);
+    //   });
+
+    setIsLoding(false);
   }, []);
 
   return (
@@ -80,14 +80,25 @@ function SearchRes({ navigation, route }) {
             메인으로
           </Text>
         </View>
-        <TouchableOpacity style={styles.searchBox} onPress={()=>navigation.navigate("Search")}>
-        <Text>{keyword}</Text>
-     <Icon style={styles.searchIcon} name="search1" size={25} color="#000"/>
-     </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.searchBox}
+          onPress={() => navigation.navigate("Search")}
+        >
+          <Text>{keyword}</Text>
+          <Icon
+            style={styles.searchIcon}
+            name="search1"
+            size={25}
+            color="#000"
+          />
+        </TouchableOpacity>
         <View style={styles.containPerPart}>
           <Text>소장 도서</Text>
           <View style={styles.perPart}>
-            <TouchableOpacity style={styles.oneBook} onPress={() => navigation.navigate("Book Detail")}>
+            <TouchableOpacity
+              style={styles.oneBook}
+              onPress={() => navigation.navigate("Book Detail")}
+            >
               <Image
                 style={styles.imageStyle}
                 source={{
@@ -109,7 +120,6 @@ function SearchRes({ navigation, route }) {
                   {cent()}
                 </View>
               </View>
-              
             </TouchableOpacity>
             <TouchableOpacity>
               <Text>더보기</Text>
