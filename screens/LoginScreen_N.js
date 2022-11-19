@@ -145,7 +145,7 @@ export default function LoginScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
 <View
         style={{
-          height: 650,
+          height: "80%",
           justifyContent: "space-between",
           flexDirection: "column",
         }}
