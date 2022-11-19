@@ -177,7 +177,7 @@ function ReadPost({ navigation, route }) {
                           }}
                         >
                           <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                            전채원
+                            {cc.name}
                           </Text>
                           <View
                             style={{
