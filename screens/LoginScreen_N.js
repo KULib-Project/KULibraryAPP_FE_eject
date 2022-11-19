@@ -5,6 +5,10 @@ import {
   StyleSheet,
   Button,
   Platform,
+  View,
+  TouchableOpacity,
+  Text,
+  Image
 } from "react-native";
 import axios from "axios";
 import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
@@ -139,7 +143,40 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Button
+<View
+        style={{
+          height: 650,
+          justifyContent: "space-between",
+          flexDirection: "column",
+        }}
+      >
+        <View style={styles.profileBoxOut}>
+          {/* 인적사항 편집 버튼 */}
+          <TouchableOpacity style={styles.editBtn}>
+            <Text>edit</Text>
+          </TouchableOpacity>
+          <View style={styles.profileBox}>
+            {/* <Image
+              style={styles.profile}
+              source={{
+                uri: "https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569__480.jpg",
+              }}
+            /> */}
+
+            <View style={styles.profileTextBox}>
+              <Text>전채원</Text>
+              <Text>컴퓨터융합소프트웨어학과(공개)</Text>
+              <Text>qqww212@korea.ac.kr(비공개)</Text>
+            </View>
+          </View>
+        </View>
+        {/* <View>
+          <TouchableOpacity>
+            <Text>내 리스트 보기</Text>
+          </TouchableOpacity>
+        </View> */}
+        <View style={styles.logingBtn}>
+         <Button
         title="네이버 아이디로 로그인하기"
         onPress={() => naverLogin(initials)}
       />
@@ -148,6 +185,12 @@ export default function LoginScreen({ navigation }) {
       {!!naverToken && (
         <Button title="회원정보 가져오기" onPress={getUserProfile} />
       )}
+         
+        </View>
+      </View>
+      
+
+
     </SafeAreaView>
   );
 }
@@ -157,5 +200,44 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-evenly",
     alignItems: "center",
+  },
+  profileBox: {
+    flexDirection: "row",
+    width: 350,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    backgroundColor: "#fff",
+    borderRadius: 7,
+    padding: 15,
+  },
+  profileBoxOut: {
+    flexDirection: "column",
+    width: 350,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    backgroundColor: "#fff",
+    borderRadius: 7,
+    padding: 15,
+  },
+  profile: {
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+  },
+  profileTextBox: {
+    marginLeft: 20,
+  },
+  editBtn: {
+    flexDirection: "row",
+    width: 330,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    marginRight: 20,
+  },
+  logingBtn: {
+    flexDirection: "column",
+    height: 100,
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });

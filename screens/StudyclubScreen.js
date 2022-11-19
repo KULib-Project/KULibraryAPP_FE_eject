@@ -30,7 +30,7 @@ function Studyclub({ navigation }) {
       style={{display:'flex',flexDirection:'column'}}
       renderItem={({item}) => (
       <TouchableOpacity
-      onPress={() => navigation.navigate("Read Post")}
+      onPress={() => navigation.navigate("Study Detail")}
       >
           <View style={styles.postBox}>
             <Text>스터디명</Text>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       width: 70,
       position: 'absolute',
-      top: 590,
+      top: "700%",
       right: 20,
       height: 70,
       backgroundColor: '#02A2AB',

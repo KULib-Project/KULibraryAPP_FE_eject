@@ -42,7 +42,7 @@ function Depart({ navigation }) {
           activeOpacity={0.7}
           onPress={() => alert('필터 버튼')}
           style={styles.filterStyle}>
-              <Text>필터</Text>
+              <Text style={{fontSize:20,fontWeight:"bold",color:'white'}}>필터</Text>
           </TouchableOpacity>
     </View>
   );
@@ -95,17 +95,17 @@ const styles = StyleSheet.create({
     bottom: "-300%",
   },
   filterStyle:{
-      borderWidth: 1,
-      borderColor: '#02A2AB',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: 70,
-      position: 'absolute',
-      top: 590,
-      right: 20,
-      height: 70,
-      backgroundColor: '#02A2AB',
-      borderRadius: 100,
-  },
+    borderWidth: 1,
+    borderColor: '#02A2AB',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 70,
+    position: 'absolute',
+    top: "640%",
+    right: 20,
+    height: 70,
+    backgroundColor: '#02A2AB',
+    borderRadius: 100,
+},
   
 })

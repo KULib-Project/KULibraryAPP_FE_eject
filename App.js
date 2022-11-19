@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/AntDesign";
 import React from "react";
-
+// import Test from "./save/Test";
 //스크린 페이지 import
 import HomeScreen from "./screens/HomeScreen";
 import DetailScreen from "./screens/DetailScreen";
@@ -13,10 +13,11 @@ import LoginScreen from "./screens/LoginScreen_N";
 import Auth from "./functions/auth";
 import Show from "./screens/PostShowScreen";
 import Reading from "./screens/ReadingRoom";
-import Main from "./screens/main";
+import Main from "./screens/Main";
 import Board from "./screens/PostShowScreen";
 import Depart from "./screens/Depart";
 import Studyclub from "./screens/StudyclubScreen";
+import StudyclubDetail from "./screens/StudyclubDetail";
 import Golink from "./screens/Golink";
 import Personal from "./screens/Personal";
 import Post from "./screens/PostScreen";
@@ -46,14 +47,14 @@ function Home() {
           headerShown: false,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="MainT"
-        component={MainT}
+        component={Test}
         options={{
           tabBarIcon: () => <Icon name="meh" size={30} />,
           headerShown: false,
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Login"
         component={LoginScreen}
@@ -121,6 +122,11 @@ function App() {
           options={{ headerShown: false }}
           name="Read Post"
           component={ReadPost}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Study Detail"
+          component={StudyclubDetail}
         />
         <Stack.Screen name="Detail" component={DetailScreen} />
         <Stack.Screen name="Login " component={LoginScreen} />

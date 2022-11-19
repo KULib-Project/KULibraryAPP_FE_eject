@@ -15,6 +15,7 @@ import { StyleSheet } from "react-native";
 import Checkbox from "react-native-modest-checkbox";
 import Icon from "react-native-vector-icons/AntDesign";
 
+
 function Main({ navigation }) {
   const [isChecked, checked] = useState(true);
   // const [text, onChangeText] = React.useState("");
@@ -34,7 +35,9 @@ function Main({ navigation }) {
     [6, "토"],
   ]);
   return (
+
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      
       <View style={styles.container}>
         <StatusBar backgroundColor="transparent" barStyle="dark-content" />
 
@@ -193,7 +196,9 @@ function Main({ navigation }) {
           </ScrollView>
         </View>
       </View>
+      
     </TouchableWithoutFeedback>
+ 
   );
 }
 
@@ -211,6 +216,7 @@ const styles = StyleSheet.create({
     width: "93%",
     height: "6%",
     padding: 5,
+    marginTop:"12%",
     marginBottom: "6%",
     borderWidth: 3,
     borderColor: "#A82926",

@@ -20,7 +20,7 @@ export default class DefaultQueryData {
     sortorder = undefined
   ) {
     this.defaultURL = `https://libs.korea.ac.kr/openapi/search?verb=${verb}&target=${target}&query=${query}`;
-    this.apiKey = API_KEY;
+    this.apiKey = `&apikey=${API_KEY}`;
     this.page
       ? (this.defaultURL += `&page=${page}`)
       : (this.defaultURL += `&page=10`);
@@ -35,7 +35,7 @@ export default class DefaultQueryData {
       : (this.defaultURL += `&sortorder=desc`);
 
     this.url = this.defaultURL + this.apiKey;
-    console.log("URL :", this.url);
+    console.log("URL1 :", this.url);
   }
 
   getURL() {
