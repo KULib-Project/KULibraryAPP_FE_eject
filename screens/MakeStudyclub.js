@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -10,12 +10,12 @@ import {
   View,
   TextInput,
   StatusBar,
+  Button,
 } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
-import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DropDownPicker from "react-native-dropdown-picker";
-import DatePicker from "react-datepicker";
+import { DatePickerModal } from "react-native-paper-dates";
 
 function MakeStudy({ navigation }) {
   // dropdown 메뉴 라벨 목록
@@ -39,9 +39,33 @@ function MakeStudy({ navigation }) {
 
   // 스터디 이름
   const [title, setTitle] = useState("");
+
+  // 스터디 내용
+  const [text, setText] = useState("");
+
   // 스터디 기간
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [range, setRange] = React.useState({
+    startDate: undefined,
+    endDate: undefined,
+  });
+
+  const [openDate, setOpenDate] = React.useState(false);
+
+  const onDismiss = React.useCallback(() => {
+    setOpenDate(false);
+  }, [setOpenDate]);
+
+  const onConfirm = React.useCallback(
+    ({ startDate, endDate }) => {
+      setOpenDate(false);
+      setRange({ startDate, endDate });
+    },
+    [setOpenDate, setRange]
+  );
+
+  useEffect(() => {
+    console.log(range);
+  }, [range]);
 
   AsyncStorage.getItem("User", (error, result) => {
     const UserInfo = JSON.parse(result);
@@ -89,29 +113,47 @@ function MakeStudy({ navigation }) {
                 autoFocus={true}
                 placeholder="스터디 이름"
               />
-              <View>
-                <Text style={styles.inputBody}>스터디 기간</Text>
-                <DatePicker
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                />
-                <DatePicker
-                  selected={endDate}
-                  onChange={(date) => setEndDate(date)}
-                />
-              </View>
-              <View style={[styles.postSubBox]}>
+              <View style={[styles.inputBody]}>
                 <TextInput
                   multiline={true}
-                  style={[styles.inputBody]}
                   autoFocus={true}
                   onChangeText={(text) => setText(text)}
-                  placeholder="추천 이유"
+                  placeholder="스터디 내용"
                 />
-
-                <TouchableOpacity>
-                  <Icon name="picture" size={20} color="#222" />
-                </TouchableOpacity>
+                <View>
+                  <Text style={styles.inputBody}>스터디 기간</Text>
+                  <Button
+                    onPress={() => setOpenDate(true)}
+                    uppercase={false}
+                    mode="outlined"
+                    title="Pick range"
+                  ></Button>
+                  <DatePickerModal
+                    locale="en"
+                    mode="range"
+                    visible={openDate}
+                    onDismiss={onDismiss}
+                    startDate={range.startDate}
+                    endDate={range.endDate}
+                    onConfirm={onConfirm}
+                    validRange={{
+                      startDate: new Date(),
+                    }}
+                    // onChange={} // same props as onConfirm but triggered without confirmed by user
+                    // saveLabel="Save" // optional
+                    // saveLabelDisabled={true} // optional, default is false
+                    // uppercase={false} // optional, default is true
+                    // label="Select period" // optional
+                    // startLabel="From" // optional
+                    // endLabel="To" // optional
+                    // animationType="slide" // optional, default is slide on ios/android and none on web
+                    // startYear={2000} // optional, default is 1800
+                    // endYear={2100} // optional, default is 2200
+                    // closeIcon="close" // optional, default is "close"
+                    // editIcon="pencil" // optional, default is "pencil"
+                    // calendarIcon="calendar" // optional, default is "calendar"
+                  />
+                </View>
               </View>
             </View>
             <View style={{ flex: 1 }} />
