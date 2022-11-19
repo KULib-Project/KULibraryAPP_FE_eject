@@ -59,18 +59,18 @@ function Home() {
         name="Login"
         component={LoginScreen}
         options={{
-          tabBarIcon: () => <Icon name="adduser" size={30} />,
+          tabBarIcon: () => <Icon name="user" size={30} />,
           headerShown: false,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Personal"
         component={Personal}
         options={{
           tabBarIcon: () => <Icon name="user" size={30} />,
           headerShown: false,
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 }
