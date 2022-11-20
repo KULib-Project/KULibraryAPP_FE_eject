@@ -10,13 +10,16 @@ import {
   View,
   TextInput,
   StatusBar,
+  Button
 } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DropDownPicker from "react-native-dropdown-picker";
-import DateTimePicker from "react-native-modal-datetime-picker";
+// import DateTimePicker from "react-native-modal-datetime-picker";
 // import DatePicker from "react-datepicker";
+import DatePicker from 'react-native-date-picker'
+
 
 function MakeStudy({ navigation }) {
   // dropdown 메뉴 라벨 목록
@@ -41,15 +44,22 @@ function MakeStudy({ navigation }) {
   // 스터디 이름
   const [title, setTitle] = useState("");
   // 스터디 기간
-  const [startDate, setStartDate] = React.useState();
-  const [mode, setMode] = React.useState("date");
-  const [openDate, setOpenDate] = React.useState(false);
+  // const [startDate, setStartDate] = React.useState();
+  // const [endDate, setEndDate] = React.useState();
+  // const [mode, setMode] = React.useState("date");
+  // const [openDate, setOpenDate] = React.useState(false);
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
+  const [applyDate, setApplyDate] = useState(new Date())
+  const [openSD, setOpenSD] = useState(false)
+  const [openED, setOpenED] = useState(false)
+  const [openAD, setOpenAD] = useState(false)
 
-  AsyncStorage.getItem("User", (error, result) => {
-    const UserInfo = JSON.parse(result);
-    setId(UserInfo.id);
-    setEmail(UserInfo.email);
-  });
+  // AsyncStorage.getItem("User", (error, result) => {
+  //   const UserInfo = JSON.parse(result);
+  //   setId(UserInfo.id);
+  //   setEmail(UserInfo.email);
+  // });
 
   const PostUser = () => {};
 
@@ -68,7 +78,7 @@ function MakeStudy({ navigation }) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={styles.inner}>
             <View style={styles.topBtn}>
-              <TouchableOpacity onPress={() => navigation.navigate("Depart")}>
+              <TouchableOpacity onPress={() => navigation.navigate("Studyclub")}>
                 <Icon name="close" size={25} color="#222" />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => PostUser()}>
@@ -97,15 +107,60 @@ function MakeStudy({ navigation }) {
                 placeholder="스터디 이름"
               />
               <View>
+                
                 <Text style={styles.inputBody}>스터디 기간</Text>
+                
+                <View style={styles.dateBox}>
+                <View>
+                <Button title="시작날짜" onPress={() => setOpenSD(true)} />
                 <DatePicker
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
+                  modal
+                  open={openSD}
+                  date={startDate}
+                  onConfirm={(date) => {
+                    setOpenSD(false)
+                    setStartDate(date)
+                  }}
+                  onCancel={() => {
+                    setOpenSD(false)
+                  }}
                 />
+                <Text style={{textAlign:"center"}}>2022</Text>
+                {/* 여기에 선택한 날짜 띄우고 싶음 */}
+                </View>
+                <View>
+                <Button title="종료날짜" onPress={() => setOpenED(true)} />
                 <DatePicker
-                  selected={endDate}
-                  onChange={(date) => setEndDate(date)}
+                  modal
+                  open={openED}
+                  date={endDate}
+                  onConfirm={(date) => {
+                    setOpenED(false)
+                    setEndDate(date)
+                  }}
+                  onCancel={() => {
+                    setOpenED(false)
+                  }}
                 />
+                <Text style={{textAlign:"center"}}>2023-1-2</Text>
+                </View>
+                <View>
+                <Button title="모집마감" onPress={() => setOpenAD(true)} />
+                <DatePicker
+                  modal
+                  open={openAD}
+                  date={applyDate}
+                  onConfirm={(date) => {
+                    setOpenAD(false)
+                    setApplyDate(date)
+                  }}
+                  onCancel={() => {
+                    setOpenAD(false)
+                  }}
+                />
+                <Text style={{textAlign:"center"}}>2023-1-2</Text>
+                </View>
+                </View>
               </View>
               <View style={[styles.postSubBox]}>
                 <TextInput
@@ -117,38 +172,6 @@ function MakeStudy({ navigation }) {
                 />
                 <View>
                   <Text style={styles.rangeStudy}>스터디 기간</Text>
-                  <Button
-                    onPress={() => showMode("date")}
-                    style={styles.rangeBtn}
-                    uppercase={false}
-                    mode="outlined"
-                    title="Pick range"
-                  ></Button>
-                  {/* <DatePickerModal
-                    locale="en"
-                    mode="range"
-                    visible={openDate}
-                    onDismiss={onDismiss}
-                    startDate={range.startDate}
-                    endDate={range.endDate}
-                    onConfirm={onConfirm}
-                    validRange={{
-                      startDate: new Date(),
-                    }}
-                    // onChange={} // same props as onConfirm but triggered without confirmed by user
-                    // saveLabel="Save" // optional
-                    // saveLabelDisabled={true} // optional, default is false
-                    // uppercase={false} // optional, default is true
-                    // label="Select period" // optional
-                    // startLabel="From" // optional
-                    // endLabel="To" // optional
-                    // animationType="slide" // optional, default is slide on ios/android and none on web
-                    // startYear={2000} // optional, default is 1800
-                    // endYear={2100} // optional, default is 2200
-                    // closeIcon="close" // optional, default is "close"
-                    // editIcon="pencil" // optional, default is "pencil"
-                    // calendarIcon="calendar" // optional, default is "calendar"
-                  /> */}
                 </View>
               </View>
             </View>
@@ -208,7 +231,7 @@ const styles = StyleSheet.create({
   },
   inputBody: {
     fontSize: 16,
-    height: "90%",
+    height: "80%",
     textAlignVertical: "top",
     marginTop: "-3%",
   },
@@ -218,4 +241,10 @@ const styles = StyleSheet.create({
     marginTop: "80%",
     marginBottom: "10%",
   },
+  dateBox:{
+    flexDirection:"row",
+    justifyContent:"space-around",
+    width:"100%",
+    alignItems:"center",
+  }
 });
