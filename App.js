@@ -139,8 +139,8 @@ function App() {
         <Stack.Screen name="Auth" component={Auth} />
         <Stack.Screen name="Show" component={Show} />
         <Stack.Screen name="Reading" component={Reading} />
-        <Stack.Screen name="PostDepart" component={PostDepart} />
-        <Stack.Screen name="MakeStudy" component={MakeStudy} />
+        <Stack.Screen options={{ headerShown: false }} name="PostDepart" component={PostDepart} />
+        <Stack.Screen  options={{ headerShown: false }} name="MakeStudy" component={MakeStudy} />
       </Stack.Navigator>
     </NavigationContainer>
   );
