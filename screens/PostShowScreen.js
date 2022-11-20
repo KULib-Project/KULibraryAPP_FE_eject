@@ -1,6 +1,13 @@
-
-import React, { useEffect, useState } from 'react';
-import {FlatList,View,StyleSheet,ScrollView,Text,TouchableOpacity,StatusBar } from 'react-native';
+import React, { useEffect, useState } from "react";
+import {
+  FlatList,
+  View,
+  StyleSheet,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
 import axios from "axios";
 
 function Board({ navigation }) {
@@ -22,85 +29,87 @@ function Board({ navigation }) {
     if (isLoding) {
       <Text>Loading...</Text>;
     } else {
-      return  <FlatList
-      data={data}
-      renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-    />
-    
-    // data.map((post) => (
-    //     //아이템 리스트
-        
-    //     <TouchableOpacity
-    //       key={post.id}
-    //       onPress={() => {
-    //         navigation.navigate("Read Post", { itemData: post });
-    //       }}
-    //       style={{display:'flex', flexDirection:'column-reverse'}}
-    //     >
-    //       {console.log(post)}
-    //       <View style={styles.postBox}>
-    //         <Text>{`${post.title}`}</Text>
-    //         <Text>{`${post.content}`}</Text>
-    //         <View style={styles.postSubBox}>
-    //           <Text>
-    //             {`${post.created_date}`} | {`${post.name}`}
-    //           </Text>
-    //           <View style={styles.subInfo}>
-    //             <Text>{`조회수 ${post.view_count}  `}</Text>
-    //           </View>
-    //         </View>
-    //       </View>
-    //     </TouchableOpacity>
+      return (
+        <FlatList
+          data={data}
+          renderItem={({ item }) => <Text style={styles.item}>{item.key}</Text>}
+        />
+      );
 
-    //   ));
+      // data.map((post) => (
+      //     //아이템 리스트
+
+      //     <TouchableOpacity
+      //       key={post.id}
+      //       onPress={() => {
+      //         navigation.navigate("Read Post", { itemData: post });
+      //       }}
+      //       style={{display:'flex', flexDirection:'column-reverse'}}
+      //     >
+      //       {console.log(post)}
+      //       <View style={styles.postBox}>
+      //         <Text>{`${post.title}`}</Text>
+      //         <Text>{`${post.content}`}</Text>
+      //         <View style={styles.postSubBox}>
+      //           <Text>
+      //             {`${post.created_date}`} | {`${post.name}`}
+      //           </Text>
+      //           <View style={styles.subInfo}>
+      //             <Text>{`조회수 ${post.view_count}  `}</Text>
+      //           </View>
+      //         </View>
+      //       </View>
+      //     </TouchableOpacity>
+
+      //   ));
     }
   };
 
   return (
     <View>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" />
-      
+      <StatusBar backgroundColor="transparent" barStyle="dark-content" />
+
       <FlatList
-      inverted={-1}
-      data={data}
-      style={{display:'flex',flexDirection:'column'}}
-      renderItem={({item}) => (
-            //아이템 리스트 
-            <TouchableOpacity
-              key={item.id}
-              onPress={() => {
-                navigation.navigate("Read Post", { itemData: item });
-              }}
-              style={{display:'flex', flexDirection:'column-reverse'}}
-            >
-              {console.log(item)}
-              <View style={styles.postBox}>
-                <Text>{`${item.title}`}</Text>
-                <Text>{`${item.content}`}</Text>
-                <View style={styles.postSubBox}>
-                  <Text>
-                    {`${item.created_date}`} | {`${item.name}`}
-                  </Text>
-                  <View style={styles.subInfo}>
-                    <Text>{`조회수 ${item.view_count}  `}</Text>
-                  </View>
+        inverted={-1}
+        data={data}
+        style={{ display: "flex", flexDirection: "column" }}
+        renderItem={({ item }) => (
+          //아이템 리스트
+          <TouchableOpacity
+            key={item.id}
+            onPress={() => {
+              navigation.navigate("Read Post", { itemData: item });
+            }}
+            style={{ display: "flex", flexDirection: "column-reverse" }}
+          >
+            {console.log(item)}
+            <View style={styles.postBox}>
+              <Text>{`${item.title}`}</Text>
+              <Text>{`${item.content}`}</Text>
+              <View style={styles.postSubBox}>
+                <Text>
+                  {`${item.created_date}`} | {`${item.name}`}
+                </Text>
+                <View style={styles.subInfo}>
+                  <Text>{`조회수 ${item.view_count}  `}</Text>
                 </View>
               </View>
-            </TouchableOpacity>
-    
-          )}
-    />
-
-      {/* {RenderBoard()} */}
-    
-      <TouchableOpacity 
-          activeOpacity={0.7}
-          onPress={() => navigation.navigate("Post")}
-          style={styles.touchableOpacityStyle}>
-            <View style={styles.postBtn}>
-              <Text>글쓰기</Text>
             </View>
           </TouchableOpacity>
+        )}
+      />
+
+      {/* {RenderBoard()} */}
+
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={() => navigation.navigate("Post")}
+        style={styles.touchableOpacityStyle}
+      >
+        <View style={styles.postBtn}>
+          <Text>글쓰기</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
