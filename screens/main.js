@@ -110,7 +110,7 @@ function Main({ navigation }) {
               style={styles.btnText}
               onPress={() => navigation.navigate("Golink")}
             >
-              도서관 혜택 바로가기
+              도서관 혜택
             </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.btnMain}>
@@ -133,15 +133,18 @@ function Main({ navigation }) {
             style={styles.btnMain}
             onPress={() => navigation.navigate("Studyclub")}
           >
-            <Text style={styles.btnText}>스터디 그룹 모집 게시판</Text>
+            <Text style={styles.btnText}>스터디 그룹</Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.btnOrganize}>
         <TouchableOpacity
             style={styles.btnMain}
             onPress={() => navigation.navigate("Reading")}
           >
             <Text style={styles.btnText}>열람실</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.btnMain1}></TouchableOpacity>
+          </View>
         {/* <View style={{ height: 200 }}>
           <ScrollView style={styles.ListBox}>
             <View style={{ borderBottomWidth: 1 }}>
@@ -241,6 +244,16 @@ const styles = StyleSheet.create({
     width: "45%",
     height: 70,
     backgroundColor: "#02A2AB",
+    borderRadius: 7,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  btnMain1: {
+    margin: "1%",
+    padding: "1%",
+    width: "45%",
+    height: 70,
+    backgroundColor: "#c2c2c2",
     borderRadius: 7,
     alignItems: "center",
     justifyContent: "center",
