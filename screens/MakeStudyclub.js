@@ -95,10 +95,10 @@ function MakeStudy({ navigation }) {
                 setItems={setItems}
                 setValue={setValue}
                 placeholder="스터디 대주제"
-                containerStyle={{ height: "7%", width: "80%" }}
+                containerStyle={{ height: "7%", width: "55%" }}
               />
-            </View>
-            <View style={{ flex: 19, width: "90%", padding: "3%" }}>
+            
+            <View style={{ flex: 19, width: "90%", padding: "3%",marginTop:"7%" }}>
               <TextInput
                 multiline={true}
                 style={styles.inputTitle}
@@ -172,6 +172,7 @@ function MakeStudy({ navigation }) {
                 </View>
               </View>
             </View>
+            </View>
             <View style={{ flex: 1 }} />
           </View>
         </TouchableWithoutFeedback>
@@ -209,7 +210,8 @@ const styles = StyleSheet.create({
   },
   dropContainer: {
     //alignItems: "center",
-    width: "55%",
+    width: "100%",
+    height:"85%",
     marginLeft: "2%",
   },
   dropDown: {

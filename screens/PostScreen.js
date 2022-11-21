@@ -85,9 +85,9 @@ function Post({ navigation }) {
                   placeholder="내용을 입력해주세요"
                 />
 
-                <TouchableOpacity>
+                {/* <TouchableOpacity>
                   <Icon name="picture" size={20} color="#222" />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </View>
             </View>
             <View style={{ flex: 1 }} />

@@ -101,9 +101,9 @@ function PostDepart({ navigation }) {
                 setItems={setItems}
                 setValue={setValue}
                 placeholder="학과 선택"
-                containerStyle={{ height: "7%", width: "80%" }}
+                containerStyle={{ height: "7%", width: "55%" }}
               />
-            </View>
+            
             <View style={{ flex: 19, width: "90%", padding: "3%" }}>
               <TextInput
                 multiline={true}
@@ -123,10 +123,11 @@ function PostDepart({ navigation }) {
                   placeholder="추천 이유"
                 />
 
-                <TouchableOpacity>
+                {/* <TouchableOpacity>
                   <Icon name="picture" size={20} color="#222" />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </View>
+            </View>
             </View>
             <View style={{ flex: 1 }} />
           </View>
@@ -164,7 +165,8 @@ const styles = StyleSheet.create({
   },
   dropContainer: {
     //alignItems: "center",
-    width: "55%",
+    width: "100%",
+    height:"85%",
     marginLeft: "2%",
   },
   dropDown: {
