@@ -275,6 +275,7 @@ const styles = StyleSheet.create({
     margin: 0,
     alignItems: "baseline",
     justifyContent: "center",
+    marginBottom:"6%"
   },
   libOpen: {
     flexDirection: "row",
