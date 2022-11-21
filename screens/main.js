@@ -136,7 +136,13 @@ function Main({ navigation }) {
             <Text style={styles.btnText}>스터디 그룹 모집 게시판</Text>
           </TouchableOpacity>
         </View>
-        <View style={{ height: 200 }}>
+        <TouchableOpacity
+            style={styles.btnMain}
+            onPress={() => navigation.navigate("Reading")}
+          >
+            <Text style={styles.btnText}>열람실</Text>
+          </TouchableOpacity>
+        {/* <View style={{ height: 200 }}>
           <ScrollView style={styles.ListBox}>
             <View style={{ borderBottomWidth: 1 }}>
               <Text>Book List</Text>
@@ -194,7 +200,7 @@ function Main({ navigation }) {
               </TouchableOpacity>
             </View>
           </ScrollView>
-        </View>
+        </View> */}
       </View>
       
     </TouchableWithoutFeedback>

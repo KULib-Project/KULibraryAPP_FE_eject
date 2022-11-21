@@ -6,6 +6,9 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  Modal,
+  Pressable,
+  Alert,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 
@@ -13,6 +16,7 @@ export default function ReadingRoom() {
   // dropdown 메뉴 라벨 목록
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   // 도서관 선택
   const [items, setItems] = useState([
@@ -52,10 +56,12 @@ export default function ReadingRoom() {
         </View>
       );
     } else {
-      // Complete loading
-      // 일반적인 상황에서는 출력이 잘 되나, 다른 스크린으로 이동했다가 재진입하면 undefined 에러가 발생, why?
       return reading.readingRoom.map((room) => (
-        <TouchableOpacity key={room.id} style={styles.group}>
+        <TouchableOpacity
+          key={room.id}
+          style={styles.group}
+          onPress={() => setIsModalVisible(true)}
+        >
           <View style={styles.roomBox}>
             <View style={styles.titleContainer}>
               <Text style={styles.roomName}>{`${room.readingRoom_name}`}</Text>
@@ -77,8 +83,43 @@ export default function ReadingRoom() {
     }
   };
 
+  const ReadingModal = () => {
+    // Print Loading Screen
+
+    //1. 현재 도서관 위치(서울, 세종)   //2. 열람실 위치(유선노트북열람실, 일반열람실)
+    //2. 현재 시간 보여주기 (2022년 11월 21일(월) | 08:32:05)
+    //3. 총좌석 258 사용중 214 사용가능 (258-214) 좌석
+    //4. 배정가능좌석, 사용중, 장애인석, 장애인배려석, 수리
+    return reading.readingRoom.map((room) => (
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => setIsModalVisible(!isModalVisible)}
+          >
+            <Text style={styles.textStyle}>Hide Modal</Text>
+          </Pressable>
+        </View>
+      </View>
+    ));
+  };
+
+  const currentTime = () => {
+    const date = new Date();
+  };
+
   return (
-    <View>
+    <View style={styles.container}>
+      <Modal
+        animationType={"slide"}
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={() => {
+          isModalVisible(!isModalVisible);
+        }}
+      >
+        <ReadingModal />
+      </Modal>
       <View style={styles.dropContainer}>
         <DropDownPicker
           style={styles.dropDown}
@@ -153,5 +194,57 @@ const styles = StyleSheet.create({
   },
   roomRemain: {
     margin: 5,
+  },
+  newContatiner: {
+    height: "80%",
+    width: "80%",
+    backgroundColor: "#ffffff",
+  },
+  container: {
+    zIndex: 3,
+    height: "100%",
+    width: "100%",
+  },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });

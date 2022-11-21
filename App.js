@@ -12,7 +12,7 @@ import DetailScreen from "./screens/DetailScreen";
 import LoginScreen from "./screens/LoginScreen_N";
 import Auth from "./functions/auth";
 import Show from "./screens/PostShowScreen";
-import Reading from "./screens/ReadingRoom";
+import ReadingRoom from "./screens/ReadingRoom";
 import Main from "./screens/main";
 import Board from "./screens/PostShowScreen";
 import Depart from "./screens/Depart";
@@ -138,7 +138,7 @@ function App() {
         <Stack.Screen name="Login " component={LoginScreen} />
         <Stack.Screen name="Auth" component={Auth} />
         <Stack.Screen name="Show" component={Show} />
-        <Stack.Screen name="Reading" component={Reading} />
+        <Stack.Screen name="Reading" component={ReadingRoom} />
         <Stack.Screen options={{ headerShown: false }} name="PostDepart" component={PostDepart} />
         <Stack.Screen  options={{ headerShown: false }} name="MakeStudy" component={MakeStudy} />
       </Stack.Navigator>
