@@ -132,10 +132,13 @@ export default function ReadingRoom() {
           placeholder="도서관 선택 | "
           containerStyle={{ height: "7%", width: "95%" }}
         />
-      </View>
-      <ScrollView style={styles.roomContainer}>
+        <ScrollView style={styles.roomContainer}>
         <PrintReadingRoom />
-      </ScrollView>
+        </ScrollView>
+      </View>
+      
+        
+      
     </View>
   );
 }
@@ -147,7 +150,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   roomContainer: {
-    height: "80%",
+    height: "100%",
+    width:"100%",
     padding: 10,
     marginTop: 5,
   },
