@@ -46,7 +46,7 @@ function Home() {
         name="Main"
         component={Main}
         options={{
-          tabBarIcon: () => <Icon name="meh" size={30} />,
+          tabBarIcon: () => <Icon name="home" size={30} />,
           headerShown: false,
         }}
       />

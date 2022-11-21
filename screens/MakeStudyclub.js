@@ -55,11 +55,11 @@ function MakeStudy({ navigation }) {
   const [openED, setOpenED] = useState(false)
   const [openAD, setOpenAD] = useState(false)
 
-  // AsyncStorage.getItem("User", (error, result) => {
-  //   const UserInfo = JSON.parse(result);
-  //   setId(UserInfo.id);
-  //   setEmail(UserInfo.email);
-  // });
+  AsyncStorage.getItem("User", (error, result) => {
+    const UserInfo = JSON.parse(result);
+    setId(UserInfo.id);
+    setEmail(UserInfo.email);
+  });
 
   const PostUser = () => {};
 
@@ -106,9 +106,18 @@ function MakeStudy({ navigation }) {
                 autoFocus={true}
                 placeholder="스터디 이름"
               />
+              <View style={[styles.postSubBox]}>
+                <TextInput
+                  multiline={true}
+                  style={[styles.inputBody]}
+                  autoFocus={true}
+                  onChangeText={(text) => setText(text)}
+                  placeholder="추천 이유"
+                />
+              </View>
               <View>
                 
-                <Text style={styles.inputBody}>스터디 기간</Text>
+                <Text style={[styles.inputBody, textAlign="center"]}>스터디 기간 설정</Text>
                 
                 <View style={styles.dateBox}>
                 <View>
@@ -162,18 +171,6 @@ function MakeStudy({ navigation }) {
                 </View>
                 </View>
               </View>
-              <View style={[styles.postSubBox]}>
-                <TextInput
-                  multiline={true}
-                  style={[styles.inputBody]}
-                  autoFocus={true}
-                  onChangeText={(text) => setText(text)}
-                  placeholder="추천 이유"
-                />
-                <View>
-                  <Text style={styles.rangeStudy}>스터디 기간</Text>
-                </View>
-              </View>
             </View>
             <View style={{ flex: 1 }} />
           </View>
@@ -208,6 +205,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "flex-start",
+    height: "70%",
   },
   dropContainer: {
     //alignItems: "center",
@@ -231,9 +229,11 @@ const styles = StyleSheet.create({
   },
   inputBody: {
     fontSize: 16,
-    height: "80%",
+    height: "20%",
     textAlignVertical: "top",
     marginTop: "-3%",
+    justifyContent:"center",
+    alignItems:"center"
   },
   rangeStudy: {
     fontSize: 16,

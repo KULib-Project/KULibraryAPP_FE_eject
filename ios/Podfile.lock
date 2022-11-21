@@ -520,7 +520,7 @@ SPEC CHECKSUMS:
   EXSplashScreen: 21669e598804ee810547dbb6692c8deb5dd8dbf3
   EXWebBrowser: f1573262c5de753987ed526c630076eda130804d
   FBLazyVector: c71c5917ec0ad2de41d5d06a5855f6d5eda06971
-  FBReactNativeSpec: 5e0a7d74f62d94aa713e898aeb1e232bdb600905
+  FBReactNativeSpec: f83674bb1586b5271b993da286a1207788eb4034
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
   IQKeyboardManagerSwift: 2dde0fc70110e8eac7ccce2a46fdbec6a850b414
   naveridlogin-sdk-ios: 4351fe7162cd6b8b6dbb37bd7cc205304fa1d889
