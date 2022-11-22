@@ -66,6 +66,7 @@ function Studyclub({ navigation }) {
           data={data}
           renderItem={({ item }) => <Text style={styles.item}>{item.key}</Text>}
         />
+        
       );
 
    
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 50,
     position: "absolute",
-    top: "650%",
+    top: "300%",
     right: 20,
     height: 50,
     backgroundColor: "#02A2AB",
