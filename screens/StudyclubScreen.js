@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   FlatList,
   View,
@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   StatusBar,
 } from "react-native";
-
+import axios from "axios";
 const sci = () => {
   return (
     <View
@@ -41,9 +41,36 @@ const liter = () => {
   );
 };
 
-const data = ["data"];
+// const data = ["data"];
 
 function Studyclub({ navigation }) {
+  const [data, setData] = useState([]);
+  const [isLoding, setIsLoding] = useState(true);
+
+  useEffect(() => {
+    setIsLoding(true);
+    axios
+      .get("https://library-2022.herokuapp.com/groupCommunity")
+      .then(function (response) {
+        setData(response.data);
+      })
+      .catch(console.error)
+      .finally(() => setIsLoding(false));
+  }, []);
+  const RenderBoard = () => {
+    if (isLoding) {
+      <Text>Loading...</Text>;
+    } else {
+      return (
+        <FlatList
+          data={data}
+          renderItem={({ item }) => <Text style={styles.item}>{item.key}</Text>}
+        />
+      );
+
+   
+    }
+  };
   return (
     <View>
       <StatusBar backgroundColor="transparent" barStyle="dark-content" />
@@ -58,15 +85,17 @@ function Studyclub({ navigation }) {
             onPress={() => navigation.navigate("Study Detail")}
           >
             <View style={styles.postBox}>
-              <Text>스터디명</Text>
+              <Text>{`${item.title}`}</Text>
               {liter()}
               <View style={styles.postSubBox}>
-                <Text>스터디 기간 | 22/10/1~22/12/12</Text>
+                {/* 기간 출력 줄여야 함 */}
+                <Text>스터디 기간 {`${item.endJoinTime}`}~{`${item.endTime}`}</Text>
                 <View style={styles.subInfo}>
                   <Text>D-29</Text>
-                  <TouchableOpacity>
+                  {/* 현재 날짜~endJoinTime까지 카운트 다운 */}
+                  {/* <TouchableOpacity>
                     <Text>참가하기</Text>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
               </View>
             </View>

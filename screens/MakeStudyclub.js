@@ -120,7 +120,8 @@ function MakeStudy({ navigation }) {
                 <Text style={[styles.inputBody, textAlign="center"]}>스터디 기간 설정</Text>
                 
                 <View style={styles.dateBox}>
-                <View>
+                  {/* 만들어진 API에 시작 날자 없어서 제외 */}
+                {/* <View>
                 <Button title="시작날짜" onPress={() => setOpenSD(true)} />
                 <DatePicker
                   modal
@@ -135,8 +136,7 @@ function MakeStudy({ navigation }) {
                   }}
                 />
                 <Text style={{textAlign:"center"}}>2022</Text>
-                {/* 여기에 선택한 날짜 띄우고 싶음 */}
-                </View>
+                </View> */}
                 <View>
                 <Button title="종료날짜" onPress={() => setOpenED(true)} />
                 <DatePicker

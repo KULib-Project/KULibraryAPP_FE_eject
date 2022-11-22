@@ -36,32 +36,7 @@ function Board({ navigation }) {
         />
       );
 
-      // data.map((post) => (
-      //     //아이템 리스트
-
-      //     <TouchableOpacity
-      //       key={post.id}
-      //       onPress={() => {
-      //         navigation.navigate("Read Post", { itemData: post });
-      //       }}
-      //       style={{display:'flex', flexDirection:'column-reverse'}}
-      //     >
-      //       {console.log(post)}
-      //       <View style={styles.postBox}>
-      //         <Text>{`${post.title}`}</Text>
-      //         <Text>{`${post.content}`}</Text>
-      //         <View style={styles.postSubBox}>
-      //           <Text>
-      //             {`${post.created_date}`} | {`${post.name}`}
-      //           </Text>
-      //           <View style={styles.subInfo}>
-      //             <Text>{`조회수 ${post.view_count}  `}</Text>
-      //           </View>
-      //         </View>
-      //       </View>
-      //     </TouchableOpacity>
-
-      //   ));
+   
     }
   };
 
