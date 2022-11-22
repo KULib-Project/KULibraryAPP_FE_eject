@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   FlatList,
   View,
@@ -7,10 +7,38 @@ import {
   TouchableOpacity,
   StatusBar,
 } from "react-native";
-
-const data = ["date"];
+import axios from "axios";
+// const data = ["date"];
 
 function Depart({ navigation }) {
+  const [data, setData] = useState([]);
+  const [isLoding, setIsLoding] = useState(true);
+
+  useEffect(() => {
+    setIsLoding(true);
+    axios
+      .get("https://library-2022.herokuapp.com/subjectCommunity")
+      .then(function (response) {
+        setData(response.data);
+      })
+      .catch(console.error)
+      .finally(() => setIsLoding(false));
+  }, []);
+
+  const RenderBoard = () => {
+    if (isLoding) {
+      <Text>Loading...</Text>;
+    } else {
+      return (
+        <FlatList
+          data={data}
+          renderItem={({ item }) => <Text style={styles.item}>{item.key}</Text>}
+        />
+      );
+
+   
+    }
+  };
   return (
     <View>
       <StatusBar backgroundColor="transparent" barStyle="dark-content" />
@@ -24,13 +52,13 @@ function Depart({ navigation }) {
             onPress={() => navigation.navigate("Depart Detail")}
           >
             <View style={styles.postBox}>
-              <Text>제목</Text>
-              <Text>간단한 요약</Text>
+              <Text>{`${item.title}`}</Text>
+              <Text>{`${item.content}`}</Text>
               <View style={styles.postSubBox}>
-                <Text>작성 시간 | 작성자</Text>
+                <Text>{`${item.created_date}`} | {`${item.name}`}</Text>
                 <View style={styles.subInfo}>
-                  <Text>조회수</Text>
-                  <Text>댓글수</Text>
+                  <Text>조회수: {`${item.view_count}`}</Text>
+                  <Text>학과</Text>
                 </View>
               </View>
             </View>
