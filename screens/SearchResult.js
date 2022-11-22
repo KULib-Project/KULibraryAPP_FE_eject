@@ -85,16 +85,22 @@ function SearchRes({ navigation, route }) {
                   <Text>
                     {book.DISP01[0].length > MAX_TITLE_LENGTH
                       ? "제목: " +
-                        book.DISP01[0].substr(15, MAX_TITLE_LENGTH) +
+                        book.DISP01[0]
+                          .split("\n")
+                          .join("")
+                          .substr(15, MAX_TITLE_LENGTH) +
                         "..."
-                      : "제목: " + book.DISP01[0]}
+                      : "제목: " + book.DISP01[0].split("\n").join("")}
                   </Text>
                   <Text>
                     {book.DISP03[0].length > MAX_AUTHOR_LENGTH
                       ? "저자: " +
-                        book.DISP03[0].substr(28, MAX_AUTHOR_LENGTH) +
+                        book.DISP03[0]
+                          .split("\n")
+                          .join("")
+                          .substr(28, MAX_AUTHOR_LENGTH) +
                         "..."
-                      : "저자: " + book.DISP03}
+                      : "저자: " + book.DISP03.split("\n").join("")}
                     {console.log(book.DISP03[0].length)}
                   </Text>
                   <View
