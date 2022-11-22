@@ -57,8 +57,9 @@ function Depart({ navigation }) {
               <View style={styles.postSubBox}>
                 <Text>{`${item.created_date}`} | {`${item.name}`}</Text>
                 <View style={styles.subInfo}>
-                  <Text>조회수: {`${item.view_count}`}</Text>
-                  <Text>학과</Text>
+                  <Text>조회수: {`${item.view_count}`} </Text>
+                  <Text>학과: {`${item.subjectNum}`}</Text>
+                  {/* 드롭다운 학과 목록이랑 대조해서 입력해주면 될 듯 */}
                 </View>
               </View>
             </View>
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   subInfo: {
-    width: "24%",
+    width: "30%",
     flexDirection: "row",
     justifyContent: "space-between",
   },
