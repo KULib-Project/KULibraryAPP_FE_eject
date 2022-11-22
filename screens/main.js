@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import {
   StatusBar,
-  KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
   TouchableOpacity,
   Text,
   View,
-  ScrollView,
-  TextInput,
+  Image,
 } from "react-native";
 import { StyleSheet } from "react-native";
-
-import Checkbox from "react-native-modest-checkbox";
 import Icon from "react-native-vector-icons/AntDesign";
-
+// import logo.png
+import logo from "../assets/logo.png";
 
 function Main({ navigation }) {
   const [isChecked, checked] = useState(true);
@@ -35,19 +32,11 @@ function Main({ navigation }) {
     [6, "토"],
   ]);
   return (
-
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      
       <View style={styles.container}>
         <StatusBar backgroundColor="transparent" barStyle="dark-content" />
-
+        <Image style={styles.logo} source={logo} />
         <View style={styles.searchBox}>
-          {/* <TextInput
-       style={styles.input}
-        onChangeText={onChangeText}
-        value={text}
-        placeholder="검색 키워드 입력"
-      /> */}
           <TouchableOpacity
             style={styles.input}
             onPress={() => navigation.navigate("Search")}
@@ -72,7 +61,7 @@ function Main({ navigation }) {
             date.getDay()
           )}) 개관시간`}</Text>
           <Text />
-          <View style={[styles.libOpen, { borderBottomWidth: 0.2 }]}>
+          <View style={[styles.libOpen, { borderBottomWidth: 0.4 }]}>
             <View style={styles.libOpenBox01}>
               <Text style={styles.libOpenText}>중앙도서관</Text>
               <Text style={styles.libOpenText}>09:00 - 22:00</Text>
@@ -137,14 +126,14 @@ function Main({ navigation }) {
           </TouchableOpacity>
         </View>
         <View style={styles.btnOrganize}>
-        <TouchableOpacity
+          <TouchableOpacity
             style={styles.btnMain}
             onPress={() => navigation.navigate("Reading")}
           >
             <Text style={styles.btnText}>열람실</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.btnMain1}></TouchableOpacity>
-          </View>
+        </View>
         {/* <View style={{ height: 200 }}>
           <ScrollView style={styles.ListBox}>
             <View style={{ borderBottomWidth: 1 }}>
@@ -205,9 +194,7 @@ function Main({ navigation }) {
           </ScrollView>
         </View> */}
       </View>
-      
     </TouchableWithoutFeedback>
- 
   );
 }
 
@@ -220,12 +207,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  logo: {
+    width: "55%",
+    height: "7%",
+    marginTop: "3%",
+    marginBottom: "-8%",
+  },
   searchBox: {
     backgroundColor: "#fff",
     width: "93%",
     height: "6%",
     padding: 5,
-    marginTop:"12%",
+    marginTop: "12%",
     marginBottom: "6%",
     borderWidth: 3,
     borderColor: "#A82926",
@@ -275,7 +268,8 @@ const styles = StyleSheet.create({
     margin: 0,
     alignItems: "baseline",
     justifyContent: "center",
-    marginBottom:"6%"
+    marginTop: "-2%",
+    marginBottom: "2%",
   },
   libOpen: {
     flexDirection: "row",

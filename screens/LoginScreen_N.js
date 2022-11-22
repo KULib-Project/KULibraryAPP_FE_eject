@@ -31,7 +31,7 @@ const initials = Platform.OS === "ios" ? iosKeys : androidKeys;
 
 export default function LoginScreen({ navigation }) {
   const [isLoding, setIsLoding] = useState(false);
-  const [naverToken, setNaverToken] = React.useState(null);
+  const [naverToken, setNaverToken] = useState(null);
   const [response, setResponse] = useState();
   const [nUser, setNUser] = useState("");
 
