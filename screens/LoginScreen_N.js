@@ -8,7 +8,7 @@ import {
   View,
   TouchableOpacity,
   Text,
-  Image
+  Image,
 } from "react-native";
 import axios from "axios";
 import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
@@ -141,9 +141,28 @@ export default function LoginScreen({ navigation }) {
     );
   };
 
+  const PrintProfile = () => {
+    return (
+      <View>
+        <Image
+          style={styles.profile}
+          source={{
+            uri: nUser.profile_image,
+          }}
+        />
+
+        <View style={styles.profileTextBox}>
+          <Text>{nUser.name}</Text>
+          <Text>컴퓨터융합소프트웨어학과</Text>
+          <Text>{nUser.email}</Text>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-<View
+      <View
         style={{
           height: "80%",
           justifyContent: "space-between",
@@ -156,18 +175,7 @@ export default function LoginScreen({ navigation }) {
             <Text>edit</Text>
           </TouchableOpacity>
           <View style={styles.profileBox}>
-            {/* <Image
-              style={styles.profile}
-              source={{
-                uri: "https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569__480.jpg",
-              }}
-            /> */}
-
-            <View style={styles.profileTextBox}>
-              <Text>전채원</Text>
-              <Text>컴퓨터융합소프트웨어학과(공개)</Text>
-              <Text>qqww212@korea.ac.kr(비공개)</Text>
-            </View>
+            {naverToken ? PrintProfile() : <Text>로그인이 필요합니다.</Text>}
           </View>
         </View>
         {/* <View>
@@ -176,21 +184,20 @@ export default function LoginScreen({ navigation }) {
           </TouchableOpacity>
         </View> */}
         <View style={styles.logingBtn}>
-         <Button
-        title="네이버 아이디로 로그인하기"
-        onPress={() => naverLogin(initials)}
-      />
-      {!!naverToken && <Button title="로그아웃하기" onPress={naverLogout} />}
+          <Button
+            title="네이버 아이디로 로그인하기"
+            onPress={() => naverLogin(initials)}
+          />
 
-      {!!naverToken && (
-        <Button title="회원정보 가져오기" onPress={getUserProfile} />
-      )}
-         
+          {!!naverToken && (
+            <Button title="로그아웃하기" onPress={naverLogout} />
+          )}
+
+          {!!naverToken && (
+            <Button title="회원정보 가져오기" onPress={getUserProfile} />
+          )}
         </View>
       </View>
-      
-
-
     </SafeAreaView>
   );
 }
