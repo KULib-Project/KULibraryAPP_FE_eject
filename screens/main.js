@@ -7,6 +7,7 @@ import {
   Text,
   View,
   Image,
+  Linking
 } from "react-native";
 import { StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
@@ -132,7 +133,12 @@ function Main({ navigation }) {
           >
             <Text style={styles.btnText}>열람실</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btnMain1}></TouchableOpacity>
+          <TouchableOpacity style={styles.btnMain}
+          onPress={() => { Linking.openURL("https://library.korea.ac.kr/")
+          }}
+          >
+          <Text style={styles.btnText}>도서관 바로가기</Text>
+          </TouchableOpacity>
         </View>
         {/* <View style={{ height: 200 }}>
           <ScrollView style={styles.ListBox}>
